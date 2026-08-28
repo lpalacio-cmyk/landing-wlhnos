@@ -93,7 +93,7 @@ export default function Navegacion() {
           <div className="flex items-center gap-2">
             <a
               href={`tel:${site.telefonoE164}`}
-              className="hidden text-[13.5px] font-semibold text-tinta-2 transition-colors hover:text-navy md:inline-flex"
+              className="hidden whitespace-nowrap text-[13.5px] font-semibold text-tinta-2 transition-colors hover:text-navy xl:inline-flex"
             >
               {site.telefono}
             </a>
@@ -101,7 +101,7 @@ export default function Navegacion() {
               href={wa.general}
               target="_blank"
               rel="noopener noreferrer"
-              className="boton boton-primario boton-chico"
+              className="boton boton-primario boton-chico whitespace-nowrap"
             >
               <WhatsApp size={15} />
               <span className="hidden sm:inline">Agendar reunión</span>

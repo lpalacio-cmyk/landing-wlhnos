@@ -58,11 +58,11 @@ export const wa = {
 } as const
 
 export const nav = [
-  { label: 'Diagnóstico', href: '#diagnostico' },
-  { label: 'Servicios', href: '#servicios' },
+  { label: 'Sociedades', href: '#sociedades' },
+  { label: 'Financiamiento', href: '#financiamiento' },
+  { label: 'Individuos', href: '#individuos' },
   { label: 'Niveles', href: '#niveles' },
-  { label: 'Proceso', href: '#proceso' },
-  { label: 'Equipo', href: '#equipo' },
+  { label: 'Herramientas', href: '#herramientas' },
   { label: 'Preguntas', href: '#preguntas' },
 ] as const
 

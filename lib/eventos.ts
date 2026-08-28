@@ -11,6 +11,7 @@ type Origen =
   | 'navegacion'
   | 'hero'
   | 'puertas'
+  | 'prediagnostico'
   | 'sociedades'
   | 'individuos'
   | 'financiamiento'
@@ -19,6 +20,7 @@ type Origen =
   | 'herramientas'
   | 'preguntas'
   | 'contacto'
+  | 'estandar'
   | 'pie'
   | 'barra-movil'
 
