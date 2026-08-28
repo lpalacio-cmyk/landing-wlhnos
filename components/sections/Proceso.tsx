@@ -1,9 +1,7 @@
-'use client'
-
 import EncabezadoSeccion from '../ui/EncabezadoSeccion'
 import Revelar from '../ui/Revelar'
+import EnlaceMedido from '../ui/EnlaceMedido'
 import { WhatsApp } from '../ui/icons'
-import { clicWhatsApp } from '@/lib/eventos'
 import { proceso } from '@/lib/contenido'
 import { wa } from '@/lib/site'
 
@@ -50,16 +48,10 @@ export default function Proceso() {
             <p className="max-w-[62ch] text-[14px] leading-[1.7] text-tenue">{proceso.nota}</p>
             {/* Acá el lector acaba de leer que el primer paso no compromete nada:
                 es el pico de intención de toda la página y no tenía dónde tocar. */}
-            <a
-              href={wa.general}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => clicWhatsApp('proceso')}
-              className="boton boton-primario shrink-0"
-            >
+            <EnlaceMedido href={wa.general} origen="proceso" className="boton boton-primario shrink-0">
               <WhatsApp size={16} />
               Agendar la reunión de diagnóstico
-            </a>
+            </EnlaceMedido>
           </div>
         </Revelar>
       </div>

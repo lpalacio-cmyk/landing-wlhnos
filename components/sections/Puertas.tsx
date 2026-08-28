@@ -1,8 +1,6 @@
-'use client'
-
+import EnlaceMedido from '../ui/EnlaceMedido'
 import { Flecha } from '../ui/icons'
 import Revelar from '../ui/Revelar'
-import { puertaElegida } from '@/lib/eventos'
 import { puertas } from '@/lib/contenido'
 
 /**
@@ -23,9 +21,11 @@ export default function Puertas() {
         <div className="grid gap-3 md:grid-cols-3 md:gap-4">
           {puertas.opciones.map((o, i) => (
             <Revelar key={o.clave} retardo={i * 70}>
-              <a
+              <EnlaceMedido
                 href={o.ancla}
-                onClick={() => puertaElegida(o.clave)}
+                origen="puertas"
+                tipo="perfil"
+                detalle={o.clave}
                 className="group relative flex h-full flex-col overflow-hidden rounded-[1.125rem] border border-borde bg-papel p-5 transition-all duration-200 hover:border-navy-300 hover:shadow-tarjeta sm:p-6"
               >
                 <span
@@ -47,7 +47,7 @@ export default function Puertas() {
                     className="transition-transform duration-200 group-hover:translate-x-0.5"
                   />
                 </span>
-              </a>
+              </EnlaceMedido>
             </Revelar>
           ))}
         </div>

@@ -1,10 +1,8 @@
-'use client'
-
 import EncabezadoSeccion from '../ui/EncabezadoSeccion'
 import Revelar from '../ui/Revelar'
 import TablaNiveles from '../ui/TablaNiveles'
+import EnlaceMedido from '../ui/EnlaceMedido'
 import { WhatsApp } from '../ui/icons'
-import { clicWhatsApp } from '@/lib/eventos'
 import { niveles } from '@/lib/contenido'
 import { wa } from '@/lib/site'
 
@@ -53,16 +51,10 @@ export default function Niveles() {
         </div>
 
         <Revelar retardo={110}>
-          <a
-            href={wa.niveles}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => clicWhatsApp('niveles')}
-            className="boton boton-primario mt-9"
-          >
+          <EnlaceMedido href={wa.niveles} origen="niveles" className="boton boton-primario mt-9">
             <WhatsApp size={16} />
             {niveles.cta}
-          </a>
+          </EnlaceMedido>
         </Revelar>
       </div>
     </section>

@@ -1,9 +1,7 @@
-'use client'
-
 import EncabezadoSeccion from '../ui/EncabezadoSeccion'
 import Revelar from '../ui/Revelar'
+import EnlaceMedido from '../ui/EnlaceMedido'
 import { WhatsApp } from '../ui/icons'
-import { clicWhatsApp } from '@/lib/eventos'
 import { sociedades } from '@/lib/contenido'
 import { wa } from '@/lib/site'
 
@@ -66,16 +64,14 @@ export default function Sociedades() {
         </div>
 
         <Revelar retardo={80}>
-          <a
+          <EnlaceMedido
             href={wa.sociedades}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => clicWhatsApp('sociedades')}
+            origen="sociedades"
             className="boton boton-primario mt-9"
           >
             <WhatsApp size={16} />
             {sociedades.cta}
-          </a>
+          </EnlaceMedido>
         </Revelar>
       </div>
     </section>

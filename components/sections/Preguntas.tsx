@@ -1,9 +1,7 @@
-'use client'
-
 import EncabezadoSeccion from '../ui/EncabezadoSeccion'
 import Revelar from '../ui/Revelar'
+import EnlaceMedido from '../ui/EnlaceMedido'
 import { Flecha, Mas, WhatsApp } from '../ui/icons'
-import { clicWhatsApp } from '@/lib/eventos'
 import { preguntas } from '@/lib/contenido'
 import { wa } from '@/lib/site'
 
@@ -65,16 +63,10 @@ export default function Preguntas() {
               </p>
             </div>
             <div className="flex shrink-0 flex-col gap-2.5 sm:flex-row sm:items-center">
-              <a
-                href={wa.general}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => clicWhatsApp('preguntas')}
-                className="boton boton-primario"
-              >
+              <EnlaceMedido href={wa.general} origen="preguntas" className="boton boton-primario">
                 <WhatsApp size={16} />
                 Preguntar por WhatsApp
-              </a>
+              </EnlaceMedido>
               <a href="#contacto" className="boton boton-secundario">
                 Usar el formulario
                 <Flecha size={15} />

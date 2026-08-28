@@ -1,10 +1,8 @@
-'use client'
-
 import CascadaDelPrecio from '../ui/CascadaDelPrecio'
 import EncabezadoSeccion from '../ui/EncabezadoSeccion'
 import Revelar from '../ui/Revelar'
+import EnlaceMedido from '../ui/EnlaceMedido'
 import { Calculadora, Flecha, WhatsApp } from '../ui/icons'
-import { clicHerramienta, clicWhatsApp } from '@/lib/eventos'
 import { herramientasSeccion } from '@/lib/contenido'
 import { herramientas, wa } from '@/lib/site'
 
@@ -35,14 +33,16 @@ export default function Herramientas() {
                   <h3 className="titular-3 mt-5 text-navy">{h.titulo}</h3>
                   <p className="mt-2.5 flex-1 text-[14px] leading-[1.65] text-tinta-2">{h.resumen}</p>
 
-                  <a
+                  <EnlaceMedido
                     href={h.href}
-                    onClick={() => clicHerramienta(h.href.includes('precio') ? 'precio' : 'equilibrio')}
+                    origen="herramientas"
+                    tipo="herramienta"
+                    detalle={h.href.includes('precio') ? 'precio' : 'equilibrio'}
                     className="boton boton-secundario mt-6 self-start"
                   >
                     Abrir la calculadora
                     <Flecha size={15} />
-                  </a>
+                  </EnlaceMedido>
                 </article>
               </Revelar>
             ))}
@@ -58,16 +58,14 @@ export default function Herramientas() {
             <p className="max-w-[52ch] text-[15px] leading-relaxed text-tinta-2">
               {herramientasSeccion.cierre}
             </p>
-            <a
+            <EnlaceMedido
               href={wa.general}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => clicWhatsApp('herramientas')}
+              origen="herramientas"
               className="boton boton-primario shrink-0"
             >
               <WhatsApp size={16} />
               {herramientasSeccion.cta}
-            </a>
+            </EnlaceMedido>
           </div>
         </Revelar>
 

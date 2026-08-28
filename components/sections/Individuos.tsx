@@ -1,9 +1,7 @@
-'use client'
-
 import EncabezadoSeccion from '../ui/EncabezadoSeccion'
 import Revelar from '../ui/Revelar'
+import EnlaceMedido from '../ui/EnlaceMedido'
 import { Flecha, WhatsApp } from '../ui/icons'
-import { clicWhatsApp } from '@/lib/eventos'
 import { individuos } from '@/lib/contenido'
 import { wa } from '@/lib/site'
 
@@ -62,16 +60,10 @@ export default function Individuos() {
 
         <div className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <Revelar>
-            <a
-              href={wa.individuos}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => clicWhatsApp('individuos')}
-              className="boton boton-primario"
-            >
+            <EnlaceMedido href={wa.individuos} origen="individuos" className="boton boton-primario">
               <WhatsApp size={16} />
               {individuos.cta}
-            </a>
+            </EnlaceMedido>
           </Revelar>
 
           <Revelar retardo={70}>

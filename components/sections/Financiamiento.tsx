@@ -1,9 +1,7 @@
-'use client'
-
 import EncabezadoSeccion from '../ui/EncabezadoSeccion'
 import Revelar from '../ui/Revelar'
+import EnlaceMedido from '../ui/EnlaceMedido'
 import { Check, WhatsApp } from '../ui/icons'
-import { clicWhatsApp } from '@/lib/eventos'
 import { financiamiento, metodo } from '@/lib/contenido'
 import { wa } from '@/lib/site'
 
@@ -131,16 +129,14 @@ export default function Financiamiento() {
           </Revelar>
 
           <Revelar retardo={140}>
-            <a
+            <EnlaceMedido
               href={wa.financiamiento}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => clicWhatsApp('financiamiento')}
+              origen="financiamiento"
               className="boton boton-primario mt-9"
             >
               <WhatsApp size={16} />
               {metodo.cta}
-            </a>
+            </EnlaceMedido>
           </Revelar>
         </div>
       </div>

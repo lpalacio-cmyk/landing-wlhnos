@@ -124,9 +124,15 @@ export default function PieDePagina() {
             <ul className="mt-4 space-y-3">
               {herramientas.map((h) => (
                 <li key={h.href}>
-                  <a href={h.href} className="text-[13.5px] leading-snug transition-colors hover:text-white">
+                  <EnlaceMedido
+                    href={h.href}
+                    origen="pie"
+                    tipo="herramienta"
+                    detalle={h.href.includes('precio') ? 'precio' : 'equilibrio'}
+                    className="text-[13.5px] leading-snug transition-colors hover:text-white"
+                  >
                     {h.titulo}
-                  </a>
+                  </EnlaceMedido>
                 </li>
               ))}
             </ul>
