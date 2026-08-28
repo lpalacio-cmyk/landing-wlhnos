@@ -470,7 +470,8 @@ footer .meto{color:var(--muted);margin-top:4px}
         </div>
         <div class="meta">estudio@wlhnos.com<br>wlhnos.com<br><span id="rep-fecha"></span></div>
       </div>
-      <h1>Informe de punto de equilibrio</h1>
+      <h1>Cálculo orientativo de punto de equilibrio</h1>
+      <p style="margin:10px 0 0;padding:9px 11px;border:1px solid #DAD0BE;background:#F7F2EA;border-radius:6px;font-size:11px;line-height:1.5;color:#454A57"><b>Documento generado automáticamente</b> a partir de los datos cargados por el usuario. No constituye un informe profesional ni una certificación, no fue revisado por un profesional del Estudio y no reemplaza el asesoramiento sobre un caso concreto.</p>
     </div>
 
     <!-- Datos cargados (solo PDF) -->
@@ -478,7 +479,7 @@ footer .meto{color:var(--muted);margin-top:4px}
 
     <!-- Título en pantalla -->
     <div class="rep-top no-print">
-      <h2>Su diagnóstico</h2>
+      <h2>El cálculo</h2>
       <button class="btn-pdf" id="btn-pdf" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Descargar PDF
@@ -638,20 +639,20 @@ footer .meto{color:var(--muted);margin-top:4px}
       sem.classList.add("riesgo");ico.textContent="i";tt.textContent="Complete sus datos";
       tx.textContent="Cargue sus ventas, costos variables y costos fijos del período para ver el diagnóstico.";
     }else if(!PEok){
-      sem.classList.add("alerta");ico.textContent="!";tt.textContent="Cada venta le genera pérdida";
-      tx.innerHTML="Sus costos variables ("+fmtP(CV)+") igualan o superan sus ventas ("+fmtP(V)+"), por lo que no es posible calcular un punto de equilibrio. Revise con urgencia sus <b>precios de venta</b> o la estructura de sus <b>costos variables</b>.";
+      sem.classList.add("alerta");ico.textContent="!";tt.textContent="El margen de contribución es negativo";
+      tx.innerHTML="Sus costos variables ("+fmtP(CV)+") igualan o superan sus ventas ("+fmtP(V)+"), por lo que no es posible calcular un punto de equilibrio. Conviene revisar los <b>precios de venta</b> o la estructura de sus <b>costos variables</b>.";
     }else{
       var ratio=PE/V;
       if(ratio>1.03){
         var faltaPct2=(PE-V)/V*100;
-        sem.classList.add("alerta");ico.textContent="!";tt.textContent="Está por debajo de su punto de equilibrio";
-        tx.innerHTML="Hoy vende "+fmtP(V)+" y su equilibrio está en <b>"+fmtP(PE)+"</b>. Está operando a pérdida: necesita vender un <b>"+fmtPct(faltaPct2)+"</b> más para empezar a cubrir la totalidad de sus costos.";
+        sem.classList.add("alerta");ico.textContent="!";tt.textContent="Las ventas quedan por debajo del punto de equilibrio";
+        tx.innerHTML="Hoy vende "+fmtP(V)+" y su equilibrio está en <b>"+fmtP(PE)+"</b>. Con esos datos la operación arroja pérdida: necesitaría vender un <b>"+fmtPct(faltaPct2)+"</b> más para empezar a cubrir la totalidad de sus costos.";
       }else if(ratio>=0.97){
-        sem.classList.add("riesgo");ico.textContent="≈";tt.textContent="Está en su punto de equilibrio";
+        sem.classList.add("riesgo");ico.textContent="≈";tt.textContent="Las ventas coinciden con el punto de equilibrio";
         tx.innerHTML="Sus ventas cubren exactamente la totalidad de sus costos: no gana ni pierde. Cualquier suba de costos o caída de ventas lo lleva a pérdida. Hay poco margen de seguridad.";
       }else{
         var msPct2=(V-PE)/V*100;
-        sem.classList.add("margen");ico.textContent="✓";tt.textContent="Su negocio es rentable";
+        sem.classList.add("margen");ico.textContent="✓";tt.textContent="Las ventas superan el punto de equilibrio";
         tx.innerHTML="Vende "+fmtP(V)+", por encima de los "+fmtP(PE)+" que necesita para cubrir la totalidad de sus costos. Tiene un margen de seguridad del <b>"+fmtPct(msPct2)+"</b>.";
       }
     }
@@ -660,11 +661,18 @@ footer .meto{color:var(--muted);margin-top:4px}
     var ns=$("note-struct");
     if(V>0&&isFinite(MCpct)){
       ns.style.display="block";
-      ns.innerHTML='Diagnóstico calculado sobre su <b>estructura de costos actual</b> (margen de contribución del '+fmtPct(MCpct*100)+'). Asume que esa proporción se mantiene: si sus ventas cambian, sus costos variables acompañan en la misma proporción y los fijos se mantienen. Con otros datos obtendrá un nuevo diagnóstico.';
+      ns.innerHTML='Diagnóstico calculado sobre su <b>estructura de costos actual</b> (margen de contribución del '+fmtPct(MCpct*100)+'). Asume que esa proporción se mantiene: si sus ventas cambian, sus costos variables acompañan en la misma proporción y los fijos se mantienen. Con otros datos obtendrá un nuevo cálculo.';
     }else{ns.style.display="none";ns.innerHTML="";}
 
     // ---- DATOS (reporte PDF) ----
-    function row(k,v){return '<div><span class="k">'+k+'</span><span class="v">'+v+'</span></div>';}
+    // Hoy todos los valores salen de fmtP() sobre números, pero el escapado
+    // queda puesto para que agregar un campo de texto no reabra el agujero.
+    function esc(v){
+      return String(v).replace(/[&<>"']/g, function(c){
+        return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+      });
+    }
+    function row(k,v){return '<div><span class="k">'+esc(k)+'</span><span class="v">'+esc(v)+'</span></div>';}
     var dd="";
     dd+=row("Ventas del período", fmtP(V));
     dd+=row("Costos variables", fmtP(CV));

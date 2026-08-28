@@ -357,6 +357,16 @@
   }
   .saltar-al-contenido:focus-visible { transform: translateY(0); }
 
+  /*
+   * Mientras la barra fija de contacto está en pantalla, el encabezado esconde
+   * su botón de WhatsApp: son el mismo enlace y en un teléfono conviven mal.
+   * En escritorio la barra no existe, así que el botón siempre está.
+   */
+  [data-barra-contacto='visible'] .cta-encabezado { display: none; }
+  @media (min-width: 1024px) {
+    [data-barra-contacto='visible'] .cta-encabezado { display: inline-flex; }
+  }
+
   /* Ocultar visualmente sin ocultar a los lectores de pantalla. */
   .solo-lectores {
     position: absolute;

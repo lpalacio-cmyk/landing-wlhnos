@@ -58,6 +58,9 @@ export default function Financiamiento() {
                   </li>
                 ))}
               </ul>
+              <p className="mt-4 max-w-[76ch] text-[12.5px] leading-relaxed text-claro-tenue">
+                {financiamiento.notaInstrumentos}
+              </p>
             </div>
           </Revelar>
         </div>

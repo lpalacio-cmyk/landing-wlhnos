@@ -438,6 +438,7 @@ footer .meto{color:var(--muted);margin-top:4px}
     <span class="step">Paso 2 · Configuración</span>
     <h2>Sus costos de transacción</h2>
     <p class="desc">Valores precargados: ajústelos según su actividad.</p>
+        <p class="desc" style="margin-top:6px">Los porcentajes precargados son valores de referencia, no las alícuotas que corresponden a su actividad: verifique Ingresos Brutos según su jurisdicción, la tasa de su municipio y la porción del impuesto a los débitos y créditos que no le resulte computable. El cálculo asume IVA al 21%.</p>
     <div class="grp-h">Impuestos y tasas</div>
     <div class="two">
       <div class="field"><label>Ingresos Brutos <small>(%)</small></label><div class="inp pct-in"><input class="nopre" type="number" id="r-iibb" inputmode="decimal" step="any" value="3"><span class="pre">%</span></div></div>
@@ -507,7 +508,8 @@ footer .meto{color:var(--muted);margin-top:4px}
         </div>
         <div class="meta">estudio@wlhnos.com<br>wlhnos.com<br><span id="rep-fecha"></span></div>
       </div>
-      <h1>Informe de análisis de precio de venta</h1>
+      <h1>Cálculo orientativo de precio de venta</h1>
+      <p style="margin:10px 0 0;padding:9px 11px;border:1px solid #DAD0BE;background:#F7F2EA;border-radius:6px;font-size:11px;line-height:1.5;color:#454A57"><b>Documento generado automáticamente</b> a partir de los datos cargados por el usuario. No constituye un informe profesional ni una certificación, no fue revisado por un profesional del Estudio y no reemplaza el asesoramiento sobre un caso concreto.</p>
     </div>
 
     <!-- Datos cargados (solo PDF) -->
@@ -515,7 +517,7 @@ footer .meto{color:var(--muted);margin-top:4px}
 
     <!-- Título en pantalla -->
     <div class="rep-top no-print">
-      <h2>Su diagnóstico</h2>
+      <h2>El cálculo</h2>
       <button class="btn-pdf" id="btn-pdf" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Descargar PDF
@@ -685,24 +687,31 @@ footer .meto{color:var(--muted);margin-top:4px}
       tx.textContent="El margen solicitado más las deducciones superan el 100% del precio. Reduzca el margen para que el cálculo tenga sentido.";
     }else if(!sugOk||F<=0){
       sem.classList.add("riesgo");ico.textContent="i";tt.textContent="Complete sus datos";
-      tx.textContent="Cargue precio de lista, costo y margen en el Paso 3 para ver el diagnóstico.";
+      tx.textContent="Cargue precio de lista, costo y margen en el Paso 3 para ver el cálculo.";
     }else{
       var ratio=Fsug/F;
       if(ratio>1.03){
-        sem.classList.add("alerta");ico.textContent="!";tt.textContent="Su precio se queda corto";
+        sem.classList.add("alerta");ico.textContent="!";tt.textContent="El precio queda por debajo del margen buscado";
         tx.innerHTML="Para el margen que busca, su precio de lista debería ser <b>"+fmtP(Fsug)+"</b>, no "+fmtP(F)+".";
       }else if(ratio>=0.97){
-        sem.classList.add("riesgo");ico.textContent="≈";tt.textContent="Está al límite";
+        sem.classList.add("riesgo");ico.textContent="≈";tt.textContent="El precio queda justo en el margen buscado";
         tx.textContent="Su precio cubre exactamente el margen que busca. Cualquier suba de costos o caída de ventas lo lleva a pérdida.";
       }else{
-        sem.classList.add("margen");ico.textContent="✓";tt.textContent="Tiene margen";
+        sem.classList.add("margen");ico.textContent="✓";tt.textContent="El precio alcanza el margen buscado";
         tx.innerHTML="Cobra <b>"+fmtP(F)+"</b>, por encima de los "+fmtP(Fsug)+" necesarios.";
       }
     }
 
     // DATOS (reporte PDF)
     var dd="";
-    function row(k,v){return '<div><span class="k">'+k+'</span><span class="v">'+v+'</span></div>';}
+    // El nombre del producto lo escribe el usuario: se escapa antes de
+    // interpolarlo, o un valor con marcado se ejecuta dentro de la página.
+    function esc(v){
+      return String(v).replace(/[&<>"']/g, function(c){
+        return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+      });
+    }
+    function row(k,v){return '<div><span class="k">'+esc(k)+'</span><span class="v">'+esc(v)+'</span></div>';}
     dd+=row("Producto", prod||"—");
     dd+=row("Condición fiscal", regimen==="RI"?"Responsable Inscripto":"Monotributo");
     dd+=row("Precio de lista actual", fmtP(F));

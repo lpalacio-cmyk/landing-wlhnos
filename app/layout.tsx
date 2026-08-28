@@ -95,6 +95,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="es-AR" className={`${display.variable} ${cuerpo.variable}`}>
       <body>
+        {/*
+          El revelado al scroll parte de opacity 0 y lo levanta JavaScript. Si el
+          bundle no llega —un proxy que filtra, una extensión que rompe, una
+          conexión que corta— la página queda entera en blanco pero ocupando su
+          alto. Esta regla convierte ese caso en una página completa y estática.
+        */}
+        <noscript>
+          <style>{`.revelar{opacity:1!important;transform:none!important}`}</style>
+        </noscript>
         <script
           type="application/ld+json"
           // Datos estructurados: contenido propio y estático, no entrada de usuario.

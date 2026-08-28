@@ -52,7 +52,7 @@ export default function PieDePagina() {
                 </li>
               ))}
               <li>
-                <a href="#contacto" className="text-[13.5px] transition-colors hover:text-white">
+                <a href="/#contacto" className="text-[13.5px] transition-colors hover:text-white">
                   Contacto
                 </a>
               </li>

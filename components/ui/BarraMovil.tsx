@@ -27,6 +27,21 @@ export default function BarraMovil() {
    * se quedara, taparía justamente el botón de enviar, que es la conversión que
    * se está buscando.
    */
+  /*
+   * Se marca en el documento para que el encabezado pueda esconder su propio
+   * botón de WhatsApp mientras la barra está en pantalla: con los dos a la vez
+   * había dos botones verdes idénticos ocupando casi un cuarto del alto útil
+   * de un teléfono, con dos rótulos que prometen cosas distintas.
+   */
+  useEffect(() => {
+    const raiz = document.documentElement
+    if (visible) raiz.dataset.barraContacto = 'visible'
+    else delete raiz.dataset.barraContacto
+    return () => {
+      delete raiz.dataset.barraContacto
+    }
+  }, [visible])
+
   useEffect(() => {
     const seccion = document.getElementById('contacto')
     if (!seccion) return
@@ -56,7 +71,7 @@ export default function BarraMovil() {
           className="boton boton-primario flex-1"
         >
           <WhatsApp size={16} />
-          Agendar reunión
+          Agendar una reunión
         </a>
         <a
           href={`tel:${site.telefonoE164}`}

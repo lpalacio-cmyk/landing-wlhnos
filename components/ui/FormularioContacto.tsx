@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type FormEvent } from 'react'
+import { useEffect, useRef, useState, type FormEvent } from 'react'
 import { Check, Flecha, WhatsApp } from './icons'
 import { clicTelefono, clicWhatsApp, formularioEnviado } from '@/lib/eventos'
 import { site, wa } from '@/lib/site'
@@ -23,15 +23,54 @@ export default function FormularioContacto({
   const [estado, setEstado] = useState<Estado>('inicial')
   const [error, setError] = useState('')
   const [enlaceWhatsApp, setEnlaceWhatsApp] = useState('')
+  const resultadoRef = useRef<HTMLDivElement | null>(null)
+
+  /*
+   * El formulario mide unos 1.150 px y la tarjeta de resultado unos 330: al
+   * reemplazarse, el documento se acorta y en un teléfono la confirmación queda
+   * por encima del viewport. El visitante ve el pie de página y no sabe si el
+   * envío funcionó: vuelve a tocar Enviar, o se va. Por eso se la trae a la
+   * vista y se le da el foco, que además la anuncia en un lector de pantalla.
+   */
+  useEffect(() => {
+    if (estado !== 'listo' && estado !== 'derivar') return
+    const nodo = resultadoRef.current
+    if (!nodo) return
+    nodo.scrollIntoView({ block: 'center', behavior: 'smooth' })
+    nodo.focus({ preventScroll: true })
+  }, [estado])
 
   async function enviar(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
     if (estado === 'enviando') return
 
+    const datos = new FormData(e.currentTarget)
+
+    /*
+     * Validar acá antes de salir a la red: con una conexión de datos irregular,
+     * enterarse de que falta el nombre después de un viaje de ida y vuelta es
+     * fricción pura en el último paso del único formulario del sitio.
+     */
+    const nombreCargado = String(datos.get('nombre') || '').trim()
+    const emailCargado = String(datos.get('email') || '').trim()
+    const telefonoCargado = String(datos.get('telefono') || '').trim()
+    const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(emailCargado)
+
+    if (nombreCargado.length < 2) {
+      setError('Indíquenos su nombre.')
+      setEstado('error')
+      document.getElementById('nombre')?.focus()
+      return
+    }
+    if (!emailOk && telefonoCargado.length < 6) {
+      setError('Necesitamos un correo electrónico válido o un teléfono para responderle.')
+      setEstado('error')
+      document.getElementById(emailCargado ? 'email' : 'telefono')?.focus()
+      return
+    }
+
     setEstado('enviando')
     setError('')
-
-    const datos = new FormData(e.currentTarget)
     const cuerpo = {
       nombre: String(datos.get('nombre') || ''),
       empresa: String(datos.get('empresa') || ''),
@@ -82,7 +121,12 @@ export default function FormularioContacto({
 
   if (estado === 'listo') {
     return (
-      <div className="tarjeta flex flex-col items-start gap-4 p-7 sm:p-9">
+      <div
+        ref={resultadoRef}
+        tabIndex={-1}
+        role="status"
+        className="tarjeta flex flex-col items-start gap-4 p-7 sm:p-9 focus:outline-none"
+      >
         <span className="grid h-11 w-11 place-items-center rounded-full bg-verde-50 text-verde-800">
           <Check size={22} />
         </span>
@@ -114,7 +158,12 @@ export default function FormularioContacto({
    */
   if (estado === 'derivar') {
     return (
-      <div className="tarjeta flex flex-col items-start gap-4 p-7 sm:p-9">
+      <div
+        ref={resultadoRef}
+        tabIndex={-1}
+        role="status"
+        className="tarjeta flex flex-col items-start gap-4 p-7 sm:p-9 focus:outline-none"
+      >
         <span className="grid h-11 w-11 place-items-center rounded-full bg-naranja-50 text-naranja-700">
           <WhatsApp size={22} />
         </span>
@@ -223,7 +272,8 @@ export default function FormularioContacto({
       </div>
 
       <p className="mt-2 text-[12.5px] text-tenue">
-        Con uno de los dos alcanza. Le respondemos por donde prefiera.
+        Complete al menos uno de los dos <span className="text-naranja-700">*</span>. Le respondemos
+        por donde prefiera.
       </p>
 
       <div className="mt-5">

@@ -53,20 +53,19 @@ const PATRONES = [
 ]
 
 /**
- * Palabras que contienen una secuencia prohibida pero son correctas.
- * "está" (tercera persona) frente a "estás" (voseo), etc.
+ * Palabras que se parecen a una forma prohibida pero son correctas.
+ *
+ * Se comparan por igualdad exacta contra el hallazgo completo, NO con una
+ * expresión regular sobre él. Con `\b` pasaba lo contrario y era peor que no
+ * tener excepciones: como «á» no cuenta como carácter de palabra en modo ASCII,
+ * /\bestá\b/ coincidía dentro de «estás» y anulaba la detección del voseo.
  */
-const EXCEPCIONES = [
-  /\bestá\b/gi,
-  /\bmás\b/gi,
-  /\bademás\b/gi,
-  /\bdespués\b/gi,
-  /\ba través\b/gi,
-  /\binterés\b/gi,
-  // Atributos y expresiones de código donde "tu" no es un posesivo en español.
-  /\bstatus\b/gi,
-  /\bvirtus\b/gi,
-]
+const EXCEPCIONES = new Set([
+  'esta', 'está', 'mas', 'más', 'ademas', 'además', 'despues', 'después',
+  'traves', 'través', 'interes', 'interés',
+  // Identificadores de código donde la secuencia no es una palabra en español.
+  'status', 'virtus',
+])
 
 function archivos(dir) {
   const salida = []
@@ -106,7 +105,7 @@ for (const carpeta of DIRECTORIOS) {
       let m
       while ((m = re.exec(texto)) !== null) {
         const contexto = texto.slice(Math.max(0, m.index - 45), m.index + m[0].length + 45).replace(/\s+/g, ' ')
-        if (EXCEPCIONES.some((ex) => { ex.lastIndex = 0; return ex.test(m[0]) })) continue
+        if (EXCEPCIONES.has(m[0].toLowerCase())) continue
         const linea = texto.slice(0, m.index).split('\n').length
         hallazgos.push({ ruta: relative(RAIZ, ruta), linea, nombre, hallazgo: m[0], contexto })
       }

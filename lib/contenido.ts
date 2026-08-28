@@ -287,7 +287,9 @@ export const financiamiento = {
         'La información patrimonial y financiera que nos confía queda amparada por el secreto profesional que rige el ejercicio de las Ciencias Económicas.',
     },
   ],
-  tituloInstrumentos: 'Con qué instrumentos y ante qué organismos trabajamos',
+  tituloInstrumentos: 'Instrumentos y fuentes de financiamiento con los que operamos',
+  notaInstrumentos:
+    'La mención de estos instrumentos, entidades y organismos indica el ámbito en el que gestionamos las operaciones. No supone vínculo, representación ni aval de ninguno de ellos, y el acceso a cada línea depende del encuadre y de la evaluación que haga la entidad correspondiente.',
   instrumentos: [
     'S.G.R.',
     'C.F.I.',
@@ -392,6 +394,8 @@ export const individuos = {
       ],
     },
   ],
+  encuadre:
+    'El Estudio interviene en el análisis, la planificación y la estructuración. La apertura de cuentas comitentes y la concertación y liquidación de las operaciones se cursan a través de agentes registrados ante la Comisión Nacional de Valores.',
   puente: {
     titulo: 'Si además dirige una sociedad',
     texto:
@@ -412,7 +416,7 @@ export const niveles = {
   proyectos: {
     titulo: 'Servicios por proyecto, disponibles en los tres niveles',
     texto:
-      'Consultoría financiera integral, defensa fiscal ante inspecciones y determinaciones de oficio, y estructuración patrimonial. Se cotizan mediante propuesta previa a cada trabajo, con esquema de estructuración más comisión de éxito.',
+      'Consultoría financiera integral, defensa fiscal ante inspecciones y determinaciones de oficio, y estructuración patrimonial. Se cotizan mediante propuesta previa a cada trabajo, con esquema de estructuración más comisión de éxito. La comisión de éxito se aplica a los trabajos de gestión y estructuración: la auditoría, las certificaciones y todo informe que requiera independencia se cotizan siempre con honorario fijo.',
   },
   cta: 'Solicitar propuesta económica para su empresa',
 } as const

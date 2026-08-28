@@ -1,7 +1,11 @@
+'use client'
+
 import EncabezadoSeccion from '../ui/EncabezadoSeccion'
 import Revelar from '../ui/Revelar'
-import { Mas } from '../ui/icons'
+import { Flecha, Mas, WhatsApp } from '../ui/icons'
+import { clicWhatsApp } from '@/lib/eventos'
 import { preguntas } from '@/lib/contenido'
+import { wa } from '@/lib/site'
 
 /**
  * Preguntas frecuentes.
@@ -47,6 +51,37 @@ export default function Preguntas() {
             </Revelar>
           ))}
         </div>
+
+        {/* Quien terminó de leer las diez respuestas resolvió sus objeciones:
+            obligarlo a seguir bajando para encontrar el contacto es perderlo. */}
+        <Revelar retardo={120}>
+          <div className="mt-10 flex max-w-3xl flex-col gap-5 rounded-[1.25rem] border border-borde bg-white p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+            <div>
+              <p className="font-display text-[16px] font-semibold text-navy">
+                ¿Quedó alguna pregunta sin responder?
+              </p>
+              <p className="mt-1.5 text-[14px] leading-relaxed text-tinta-2">
+                La primera reunión son 45 minutos, sin costo ni compromiso.
+              </p>
+            </div>
+            <div className="flex shrink-0 flex-col gap-2.5 sm:flex-row sm:items-center">
+              <a
+                href={wa.general}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => clicWhatsApp('preguntas')}
+                className="boton boton-primario"
+              >
+                <WhatsApp size={16} />
+                Preguntar por WhatsApp
+              </a>
+              <a href="#contacto" className="boton boton-secundario">
+                Usar el formulario
+                <Flecha size={15} />
+              </a>
+            </div>
+          </div>
+        </Revelar>
       </div>
     </section>
   )

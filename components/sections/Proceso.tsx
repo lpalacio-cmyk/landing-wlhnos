@@ -1,6 +1,11 @@
+'use client'
+
 import EncabezadoSeccion from '../ui/EncabezadoSeccion'
 import Revelar from '../ui/Revelar'
+import { WhatsApp } from '../ui/icons'
+import { clicWhatsApp } from '@/lib/eventos'
 import { proceso } from '@/lib/contenido'
+import { wa } from '@/lib/site'
 
 export default function Proceso() {
   return (
@@ -41,9 +46,21 @@ export default function Proceso() {
         </ol>
 
         <Revelar retardo={120}>
-          <p className="mt-12 max-w-[70ch] border-t border-borde pt-6 text-[14px] leading-[1.7] text-tenue">
-            {proceso.nota}
-          </p>
+          <div className="mt-12 flex flex-col gap-6 border-t border-borde pt-7 lg:flex-row lg:items-start lg:justify-between">
+            <p className="max-w-[62ch] text-[14px] leading-[1.7] text-tenue">{proceso.nota}</p>
+            {/* Acá el lector acaba de leer que el primer paso no compromete nada:
+                es el pico de intención de toda la página y no tenía dónde tocar. */}
+            <a
+              href={wa.general}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => clicWhatsApp('proceso')}
+              className="boton boton-primario shrink-0"
+            >
+              <WhatsApp size={16} />
+              Agendar la reunión de diagnóstico
+            </a>
+          </div>
         </Revelar>
       </div>
     </section>

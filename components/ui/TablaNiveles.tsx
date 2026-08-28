@@ -1,6 +1,6 @@
 import EnlaceMedido from './EnlaceMedido'
 import { Check, WhatsApp } from './icons'
-import { wa } from '@/lib/site'
+import { waNivel } from '@/lib/site'
 
 /**
  * Los tres niveles de alcance de la propuesta económica, sin importes.
@@ -192,7 +192,7 @@ export default function TablaNiveles() {
                     </span>
                     <span className="mt-0.5 block text-[12.5px] text-tenue">Abono mensual, más IVA.</span>
                     <EnlaceMedido
-                      href={wa.niveles}
+                      href={waNivel(n.orden, n.nombre)}
                       origen="niveles"
                       className="mt-1.5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-celeste-700 underline underline-offset-2 transition-colors hover:text-navy"
                     >
@@ -256,7 +256,7 @@ export default function TablaNiveles() {
                 Abono mensual, más IVA.
               </p>
               <EnlaceMedido
-                href={wa.niveles}
+                href={waNivel(n.orden, n.nombre)}
                 origen="niveles"
                 className={`boton w-full ${n.destacado ? 'boton-primario' : 'boton-secundario'}`}
               >

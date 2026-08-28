@@ -59,13 +59,31 @@ export const wa = {
   ),
 } as const
 
+/**
+ * Enlace por nivel. Quien leyó las siete filas de alcance y eligió uno ya se
+ * autocalificó: mandar los tres al mismo mensaje genérico tira ese dato y
+ * obliga a volver a preguntarlo en la reunión.
+ */
+export function waNivel(orden: string, nombre: string): string {
+  return waLink(
+    `Hola. Vi los tres niveles de servicio en la web y quisiera una propuesta económica para mi empresa, en el Nivel ${orden} ${nombre}.`,
+  )
+}
+
+/*
+ * Anclas con raíz, no relativas al documento. La navegación y el pie también se
+ * renderizan en /privacidad y en las calculadoras, donde esas secciones no
+ * existen: con "#sociedades" el clic no hacía nada y el visitante quedaba
+ * varado. Justamente el visitante que fue a leer la política antes de dejar
+ * sus datos. En la portada el navegador las sigue tratando como salto interno.
+ */
 export const nav = [
-  { label: 'Sociedades', href: '#sociedades' },
-  { label: 'Financiamiento', href: '#financiamiento' },
-  { label: 'Individuos', href: '#individuos' },
-  { label: 'Niveles', href: '#niveles' },
-  { label: 'Herramientas', href: '#herramientas' },
-  { label: 'Preguntas', href: '#preguntas' },
+  { label: 'Sociedades', href: '/#sociedades' },
+  { label: 'Financiamiento', href: '/#financiamiento' },
+  { label: 'Individuos', href: '/#individuos' },
+  { label: 'Niveles', href: '/#niveles' },
+  { label: 'Herramientas', href: '/#herramientas' },
+  { label: 'Preguntas', href: '/#preguntas' },
 ] as const
 
 export const herramientas = [

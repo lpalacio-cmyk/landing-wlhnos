@@ -20,7 +20,6 @@ export function jsonLd() {
     taxID: site.cuit,
     logo: `${site.url}/images/logo.png`,
     image: `${site.url}/og.png`,
-    priceRange: '$$',
     /*
      * Sin el domicilio confirmado del Estudio no se declara `addressLocality`:
      * este bloque es el que Google usa para el panel de conocimiento y las

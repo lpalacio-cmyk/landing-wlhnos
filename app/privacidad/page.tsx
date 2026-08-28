@@ -15,7 +15,7 @@ const secciones = [
   {
     titulo: 'Quién es responsable de los datos',
     cuerpo: [
-      `El responsable del tratamiento es ${site.nombreLegal}, C.U.I.T. ${site.cuit}, con domicilio en ${site.ciudad}, provincia de ${site.provincia}, República Argentina.`,
+      `El responsable del tratamiento es ${site.nombreLegal}, C.U.I.T. ${site.cuit}, con domicilio en la provincia de ${site.provincia}, República Argentina.`,
       `Para cualquier consulta sobre esta política puede escribir a ${site.email} o llamar al ${site.telefono}.`,
     ],
   },
@@ -29,9 +29,10 @@ const secciones = [
   {
     titulo: 'Cómo se transmiten y dónde se conservan',
     cuerpo: [
-      'El formulario envía la consulta por correo electrónico a la casilla institucional del Estudio. El sitio no mantiene una base de datos propia de visitantes ni almacena los envíos en el servidor.',
-      'La conexión está cifrada mediante HTTPS. El sitio se aloja en la infraestructura de Vercel Inc., que puede procesar los datos técnicos de la conexión fuera de la República Argentina.',
-      'Si en lugar del formulario usted nos escribe por WhatsApp, la conversación queda sujeta además a las condiciones del propio servicio de mensajería.',
+      'El formulario envía la consulta por correo electrónico a la casilla institucional del Estudio. El sitio no conserva los envíos en una base de datos propia: una vez enviado el correo, el servidor no guarda copia del contenido.',
+      'El envío del correo se realiza a través del prestador Resend Inc. (Estados Unidos), que actúa como encargado del tratamiento por cuenta del Estudio y no utiliza los datos para ninguna otra finalidad. El sitio se aloja en la infraestructura de Vercel Inc. (Estados Unidos). En ambos casos hay una transferencia internacional de datos, que usted consiente al enviar el formulario.',
+      'Si el prestador de correo no estuviera configurado, el sitio se lo indica en pantalla y le ofrece continuar la consulta por WhatsApp: en ese caso los datos que cargó viajan dentro del mensaje que usted mismo revisa y envía, y la conversación queda sujeta además a las condiciones del servicio de mensajería.',
+      'La conexión está cifrada mediante HTTPS. Las consultas recibidas se conservan en la casilla del Estudio mientras dure su gestión y hasta un máximo de veinticuatro meses, salvo que se inicie una relación profesional, en cuyo caso rigen los plazos de conservación documental que corresponden a esa relación.',
     ],
   },
   {

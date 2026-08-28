@@ -54,6 +54,12 @@ export default function Individuos() {
           ))}
         </div>
 
+        <Revelar>
+          <p className="mt-7 max-w-[80ch] border-t border-borde pt-5 text-[12.5px] leading-relaxed text-tenue">
+            {individuos.encuadre}
+          </p>
+        </Revelar>
+
         <div className="mt-9 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
           <Revelar>
             <a

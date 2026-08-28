@@ -23,15 +23,45 @@ const PERFILES: Record<string, string> = {
 }
 
 /**
- * Límite de envíos por IP. Es una defensa mínima en memoria: se reinicia con cada
- * instancia y no pretende ser infalible, solo frenar el spam más burdo.
+ * Freno de envíos, en memoria. Se reinicia con cada instancia y no pretende ser
+ * infalible: solo evitar que el formulario sea un grifo abierto.
+ *
+ * Son dos frenos, porque el de por IP no alcanza solo. La identidad del que
+ * llama se conoce por cabeceras, y las cabeceras las puede escribir el cliente:
+ * quien rota X-Forwarded-For pasa siete veces. Por eso se prefiere primero la
+ * cabecera que escribe la plataforma —en Vercel, x-vercel-forwarded-for, que
+ * sobrescribe lo que mande el cliente— y por debajo hay un tope global que
+ * acota el volumen total aunque la identidad sea falsa.
  */
 const ventana = 10 * 60 * 1000
 const maxPorVentana = 5
+const maxGlobalPorVentana = 120
 const registro = new Map<string, number[]>()
+let globales: number[] = []
+
+function identificar(request: Request): string {
+  const dePlataforma =
+    request.headers.get('x-vercel-forwarded-for')?.split(',')[0]?.trim() ||
+    request.headers.get('cf-connecting-ip')?.trim() ||
+    request.headers.get('x-real-ip')?.trim()
+  if (dePlataforma) return dePlataforma
+
+  // Sin proxy de confianza, la última entrada es la que agregó el salto más
+  // cercano al servidor; sigue siendo falsificable, y para eso está el tope global.
+  const reenviadas = (request.headers.get('x-forwarded-for') ?? '')
+    .split(',')
+    .map((v) => v.trim())
+    .filter(Boolean)
+  return reenviadas[reenviadas.length - 1] || 'desconocida'
+}
 
 function excedeLimite(ip: string): boolean {
   const ahora = Date.now()
+
+  globales = globales.filter((t) => ahora - t < ventana)
+  globales.push(ahora)
+  if (globales.length > maxGlobalPorVentana) return true
+
   const previos = (registro.get(ip) ?? []).filter((t) => ahora - t < ventana)
   previos.push(ahora)
   registro.set(ip, previos)
@@ -39,17 +69,55 @@ function excedeLimite(ip: string): boolean {
   return previos.length > maxPorVentana
 }
 
+/** Campos de una línea: se quitan los caracteres de control por completo. */
 function limpiar(valor: unknown, max: number): string {
   if (typeof valor !== 'string') return ''
   return valor.replace(/[\u0000-\u001F\u007F]/g, '').trim().slice(0, max)
 }
 
+/**
+ * Texto libre: conserva los saltos de línea.
+ *
+ * El mensaje es lo que el socio lee para decidir si el caso le interesa. Si se
+ * borran los saltos, una consulta escrita en tres renglones llega con las
+ * palabras pegadas, tanto por correo como por el enlace de WhatsApp.
+ */
+function limpiarTexto(valor: unknown, max: number): string {
+  if (typeof valor !== 'string') return ''
+  return valor
+    .replace(/\r\n?/g, '\n')
+    .replace(/[\u0000-\u0009\u000B-\u001F\u007F]/g, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+    .slice(0, max)
+}
+
 const emailValido = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)
 
+/**
+ * Tope de tamaño del cuerpo. Los route handlers del App Router no heredan el
+ * límite que tenían las API routes del directorio pages: sin este freno,
+ * `request.json()` bufferiza y parsea lo que llegue. Es un endpoint público y
+ * anónimo; el formulario más largo posible entra holgado en 32 kB.
+ */
+const MAX_CUERPO = 32 * 1024
+
 export async function POST(request: Request) {
+  const declarado = Number(request.headers.get('content-length') ?? '0')
+  if (Number.isFinite(declarado) && declarado > MAX_CUERPO) {
+    return NextResponse.json({ ok: false, error: 'Solicitud inválida.' }, { status: 413 })
+  }
+
   let body: Payload
   try {
-    body = (await request.json()) as Payload
+    // Se lee como texto para poder cortar antes de parsear: content-length
+    // puede faltar o mentir.
+    const crudo = await request.text()
+    if (crudo.length > MAX_CUERPO) {
+      return NextResponse.json({ ok: false, error: 'Solicitud inválida.' }, { status: 413 })
+    }
+    body = JSON.parse(crudo) as Payload
+    if (typeof body !== 'object' || body === null) throw new Error('cuerpo no es un objeto')
   } catch {
     return NextResponse.json({ ok: false, error: 'Solicitud inválida.' }, { status: 400 })
   }
@@ -59,12 +127,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true, entregado: true })
   }
 
-  const ip =
-    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
-    request.headers.get('x-real-ip') ||
-    'desconocida'
-
-  if (excedeLimite(ip)) {
+  if (excedeLimite(identificar(request))) {
     return NextResponse.json(
       { ok: false, error: 'Recibimos varias consultas suyas en los últimos minutos. Escríbanos por WhatsApp y lo atendemos de inmediato.' },
       { status: 429 },
@@ -77,7 +140,7 @@ export async function POST(request: Request) {
   const telefono = limpiar(body.telefono, 60)
   const perfilClave = limpiar(body.perfil, 40)
   const perfil = PERFILES[perfilClave] ?? 'Consulta general'
-  const mensaje = limpiar(body.mensaje, 4000)
+  const mensaje = limpiarTexto(body.mensaje, 4000)
 
   if (nombre.length < 2) {
     return NextResponse.json({ ok: false, error: 'Indíquenos su nombre.' }, { status: 400 })

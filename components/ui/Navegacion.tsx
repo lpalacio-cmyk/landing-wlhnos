@@ -21,8 +21,20 @@ export default function Navegacion() {
 
   /* Resalta en el menú la sección que se está mirando. */
   useEffect(() => {
+    /*
+     * Los href son anclas con raíz ("/#sociedades") para que también funcionen
+     * desde /privacidad. Como selector CSS eso es inválido y querySelector
+     * lanza, así que hay que quedarse con el fragmento.
+     */
     const secciones = nav
-      .map((l) => document.querySelector(l.href))
+      .map((l) => {
+        const fragmento = l.href.slice(l.href.indexOf('#'))
+        try {
+          return document.querySelector(fragmento)
+        } catch {
+          return null
+        }
+      })
       .filter((n): n is Element => n !== null)
     if (secciones.length === 0) return
 
@@ -70,7 +82,7 @@ export default function Navegacion() {
         }`}
       >
         <div className="contenedor flex h-[68px] items-center justify-between gap-6">
-          <a href="#inicio" aria-label={`${site.nombre} — Inicio`} className="shrink-0">
+          <a href="/#inicio" aria-label={`${site.nombre} — Inicio`} className="shrink-0">
             <Logo alto={32} prioridad />
           </a>
 
@@ -79,9 +91,9 @@ export default function Navegacion() {
               <a
                 key={l.href}
                 href={l.href}
-                aria-current={activa === l.href ? 'true' : undefined}
+                aria-current={activa === l.href.slice(l.href.indexOf('#')) ? 'true' : undefined}
                 className={`rounded-lg px-3 py-2 text-[13.5px] font-medium transition-colors duration-150 ${
-                  activa === l.href
+                  activa === l.href.slice(l.href.indexOf('#'))
                     ? 'bg-celeste-50 text-celeste-700'
                     : 'text-tinta-2 hover:bg-papel-2 hover:text-navy'
                 }`}
@@ -104,11 +116,10 @@ export default function Navegacion() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => clicWhatsApp('navegacion')}
-              className="boton boton-primario boton-chico whitespace-nowrap"
+              className="cta-encabezado boton boton-primario boton-chico whitespace-nowrap"
             >
               <WhatsApp size={15} />
-              <span className="hidden sm:inline">Agendar reunión</span>
-              <span className="sm:hidden">Escribirnos</span>
+              Agendar una reunión
             </a>
             <button
               type="button"
