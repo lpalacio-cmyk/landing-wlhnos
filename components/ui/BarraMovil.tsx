@@ -11,13 +11,31 @@ import { site, wa } from '@/lib/site'
  * perder consultas. Aparece recién después del hero, para no tapar la portada.
  */
 export default function BarraMovil() {
-  const [visible, setVisible] = useState(false)
+  const [pasoElHero, setPasoElHero] = useState(false)
+  const [enContacto, setEnContacto] = useState(false)
+  const visible = pasoElHero && !enContacto
 
   useEffect(() => {
-    const alScrollear = () => setVisible(window.scrollY > 620)
+    const alScrollear = () => setPasoElHero(window.scrollY > 620)
     alScrollear()
     window.addEventListener('scroll', alScrollear, { passive: true })
     return () => window.removeEventListener('scroll', alScrollear)
+  }, [])
+
+  /*
+   * La barra se retira cuando el formulario de contacto entra en pantalla: si
+   * se quedara, taparía justamente el botón de enviar, que es la conversión que
+   * se está buscando.
+   */
+  useEffect(() => {
+    const seccion = document.getElementById('contacto')
+    if (!seccion) return
+    const observador = new IntersectionObserver(
+      ([entrada]) => setEnContacto(entrada.isIntersecting),
+      { rootMargin: '0px 0px -25% 0px' },
+    )
+    observador.observe(seccion)
+    return () => observador.disconnect()
   }, [])
 
   return (

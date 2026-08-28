@@ -77,11 +77,12 @@ export default function Hero() {
           {/* ── Columna del contraste ─────────────────────────────────── */}
           <div className="lg:pl-4">
             <div className="overflow-hidden rounded-[1.375rem] border border-white/14 bg-white/[0.045] backdrop-blur-sm">
-              <div className="grid grid-cols-[1fr_1fr] border-b border-white/12">
-                <p className="px-4 py-3 text-center font-display text-[10.5px] font-semibold uppercase tracking-[0.18em] text-white/45 sm:px-5">
+              {/* Encabezado de columnas: solo cuando hay dos columnas de verdad. */}
+              <div className="hidden grid-cols-2 border-b border-white/12 sm:grid">
+                <p className="px-5 py-3 text-center font-display text-[10.5px] font-semibold uppercase tracking-[0.18em] text-white/45">
                   Se acepta
                 </p>
-                <p className="border-l border-white/12 bg-celeste/10 px-4 py-3 text-center font-display text-[10.5px] font-semibold uppercase tracking-[0.18em] text-celeste-300 sm:px-5">
+                <p className="border-l border-white/12 bg-celeste/10 px-5 py-3 text-center font-display text-[10.5px] font-semibold uppercase tracking-[0.18em] text-celeste-300">
                   Se decide
                 </p>
               </div>
@@ -90,14 +91,24 @@ export default function Hero() {
                 {hero.contraste.map((fila, i) => (
                   <li
                     key={fila.clave}
-                    className={`grid grid-cols-[1fr_1fr] ${
-                      i > 0 ? 'border-t border-white/10' : ''
-                    }`}
+                    className={`grid sm:grid-cols-2 ${i > 0 ? 'border-t border-white/10' : ''}`}
                   >
-                    <p className="px-4 py-4 text-[13px] leading-[1.5] text-white/50 sm:px-5 sm:text-[13.5px]">
+                    <p className="px-5 pb-2 pt-4 text-[13.5px] leading-[1.5] text-white/50 sm:pb-4">
+                      <span
+                        aria-hidden="true"
+                        className="mr-2 font-display text-[10px] font-semibold uppercase tracking-[0.16em] text-white/30 sm:hidden"
+                      >
+                        Se acepta
+                      </span>
                       {fila.acepta}
                     </p>
-                    <p className="border-l border-white/12 bg-celeste/[0.07] px-4 py-4 text-[13px] leading-[1.5] text-white sm:px-5 sm:text-[13.5px]">
+                    <p className="bg-celeste/[0.07] px-5 pb-4 pt-2 text-[13.5px] leading-[1.5] text-white sm:border-l sm:border-white/12 sm:pt-4">
+                      <span
+                        aria-hidden="true"
+                        className="mr-2 font-display text-[10px] font-semibold uppercase tracking-[0.16em] text-celeste-300 sm:hidden"
+                      >
+                        Se decide
+                      </span>
                       {fila.decide}
                     </p>
                   </li>

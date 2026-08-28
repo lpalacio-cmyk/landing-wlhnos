@@ -98,7 +98,7 @@ export default function FormularioContacto({
                 className={`flex cursor-pointer items-start gap-2.5 rounded-xl border px-3.5 py-3 transition-colors duration-150 ${
                   activo
                     ? 'border-celeste-600 bg-celeste-50'
-                    : 'border-borde-fuerte bg-papel hover:border-navy-300'
+                    : 'border-borde-control bg-white hover:border-navy-300'
                 }`}
               >
                 <input
@@ -112,7 +112,7 @@ export default function FormularioContacto({
                 <span
                   aria-hidden="true"
                   className={`mt-[3px] grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full border-2 transition-colors peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-celeste-600 ${
-                    activo ? 'border-celeste-600' : 'border-borde-fuerte'
+                    activo ? 'border-celeste-600' : 'border-borde-control'
                   }`}
                 >
                   {activo && <span className="h-2 w-2 rounded-full bg-celeste-600" />}

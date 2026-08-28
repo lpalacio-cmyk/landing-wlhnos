@@ -92,7 +92,7 @@ export default function Prediagnostico({ situaciones }: Props) {
                     className={`mt-0.5 grid h-[22px] w-[22px] shrink-0 place-items-center rounded-md border-2 transition-colors duration-150 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-celeste-600 ${
                       activa
                         ? 'border-celeste-600 bg-celeste-600 text-white'
-                        : 'border-borde-fuerte bg-papel'
+                        : 'border-borde-control bg-white'
                     }`}
                   >
                     {activa && <Check size={13} />}
@@ -137,7 +137,7 @@ export default function Prediagnostico({ situaciones }: Props) {
               href={enlace}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => clicWhatsApp('puertas')}
+              onClick={() => clicWhatsApp('prediagnostico')}
               className="boton boton-primario mt-4 w-full sm:w-auto"
             >
               <WhatsApp size={16} />

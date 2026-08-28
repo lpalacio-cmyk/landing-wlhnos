@@ -40,7 +40,7 @@ export default function PieDePagina() {
 
           {/* Navegación */}
           <nav aria-label="Secciones">
-            <h2 className="font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
+            <h2 className="font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60">
               La página
             </h2>
             <ul className="mt-5 space-y-3">
@@ -61,7 +61,7 @@ export default function PieDePagina() {
 
           {/* Servicios (sin enlace: son descriptivos, no páginas) */}
           <div>
-            <h2 className="font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
+            <h2 className="font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60">
               Servicios
             </h2>
             <ul className="mt-5 space-y-3">
@@ -75,7 +75,7 @@ export default function PieDePagina() {
 
           {/* Contacto */}
           <div>
-            <h2 className="font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
+            <h2 className="font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60">
               Contacto
             </h2>
             <ul className="mt-5 space-y-3.5">
@@ -116,7 +116,7 @@ export default function PieDePagina() {
               </li>
             </ul>
 
-            <h2 className="mt-8 font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-white/45">
+            <h2 className="mt-8 font-display text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60">
               Herramientas
             </h2>
             <ul className="mt-4 space-y-3">
@@ -141,10 +141,10 @@ export default function PieDePagina() {
                 Política de privacidad
               </a>
               <span aria-hidden="true" className="text-white/20">·</span>
-              <p className="text-white/40">{site.tagline}</p>
+              <p className="text-white/60">{site.tagline}</p>
             </div>
           </div>
-          <p className="mt-5 max-w-4xl text-[11.5px] leading-relaxed text-white/35">
+          <p className="mt-5 max-w-4xl text-[11.5px] leading-relaxed text-white/55">
             El contenido de esta página tiene carácter informativo y no constituye asesoramiento
             profesional para un caso particular. Toda prestación se rige por la propuesta de servicios
             y la propuesta económica que se acuerden por escrito con cada cliente. La información
