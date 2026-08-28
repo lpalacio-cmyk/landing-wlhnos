@@ -436,7 +436,7 @@ footer .meto{color:var(--muted);margin-top:4px}
   <!-- PASO 2 -->
   <section class="card no-print">
     <span class="step">Paso 2 · Configuración</span>
-    <h2>Tus costos de transacción</h2>
+    <h2>Sus costos de transacción</h2>
     <p class="desc">Valores precargados: ajústelos según su actividad.</p>
     <div class="grp-h">Impuestos y tasas</div>
     <div class="two">
@@ -486,7 +486,7 @@ footer .meto{color:var(--muted);margin-top:4px}
     <details class="optbox" id="optbox">
       <summary><span class="plus">+</span><span class="t">Costos fijos unitarios</span><span class="tag">opcional</span></summary>
       <div class="optbody">
-        <p class="hint" style="margin:0 0 12px">Tus costos fijos del mes (alquiler, sueldos, servicios…) prorrateados por unidad vendida.</p>
+        <p class="hint" style="margin:0 0 12px">Sus costos fijos del mes (alquiler, sueldos, servicios…) prorrateados por unidad vendida.</p>
         <div class="field" style="margin-bottom:0">
           <label for="cfu">Costo fijo por unidad</label>
           <div class="inp"><span class="pre">$</span><input type="number" id="cfu" inputmode="decimal" step="any" placeholder="0"></div>
@@ -515,7 +515,7 @@ footer .meto{color:var(--muted);margin-top:4px}
 
     <!-- Título en pantalla -->
     <div class="rep-top no-print">
-      <h2>Tu diagnóstico</h2>
+      <h2>Su diagnóstico</h2>
       <button class="btn-pdf" id="btn-pdf" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Descargar PDF
@@ -689,7 +689,7 @@ footer .meto{color:var(--muted);margin-top:4px}
     }else{
       var ratio=Fsug/F;
       if(ratio>1.03){
-        sem.classList.add("alerta");ico.textContent="!";tt.textContent="Tu precio se queda corto";
+        sem.classList.add("alerta");ico.textContent="!";tt.textContent="Su precio se queda corto";
         tx.innerHTML="Para el margen que busca, su precio de lista debería ser <b>"+fmtP(Fsug)+"</b>, no "+fmtP(F)+".";
       }else if(ratio>=0.97){
         sem.classList.add("riesgo");ico.textContent="≈";tt.textContent="Está al límite";

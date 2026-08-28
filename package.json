@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/verificar-registro.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "registro": "node scripts/verificar-registro.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

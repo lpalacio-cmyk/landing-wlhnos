@@ -424,7 +424,7 @@ footer .meto{color:var(--muted);margin-top:4px}
 
   <!-- PASO 1 -->
   <section class="card no-print">
-    <span class="step">Paso 1 · Tus números</span>
+    <span class="step">Paso 1 · Sus números</span>
     <h2>Cargue los totales de un período</h2>
     <p class="desc">Utilice los datos representativos de un período (por ejemplo, un mes). Cargue importes sin IVA.</p>
 
@@ -478,7 +478,7 @@ footer .meto{color:var(--muted);margin-top:4px}
 
     <!-- Título en pantalla -->
     <div class="rep-top no-print">
-      <h2>Tu diagnóstico</h2>
+      <h2>Su diagnóstico</h2>
       <button class="btn-pdf" id="btn-pdf" type="button">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Descargar PDF
@@ -599,7 +599,7 @@ footer .meto{color:var(--muted);margin-top:4px}
       ms.style.display="block";
       if(V>PE){
         var msPct=(V-PE)/V*100;
-        ms.innerHTML='<span class="ms-lbl">Margen de seguridad: </span><span class="ms-v" style="color:#16702f">'+fmtPct(msPct)+'</span><br><span class="ms-lbl">Tus ventas pueden caer hasta '+fmtP(V-PE)+' antes de entrar en pérdida.</span>';
+        ms.innerHTML='<span class="ms-lbl">Margen de seguridad: </span><span class="ms-v" style="color:#16702f">'+fmtPct(msPct)+'</span><br><span class="ms-lbl">Sus ventas pueden caer hasta '+fmtP(V-PE)+' antes de entrar en pérdida.</span>';
       }else if(V<PE){
         var faltaPct=(PE-V)/V*100;
         ms.innerHTML='<span class="ms-lbl">Le falta para el equilibrio: </span><span class="ms-v" style="color:#cf4d22">'+fmtP(PE-V)+'</span><br><span class="ms-lbl">Necesita vender un '+fmtPct(faltaPct)+' más para dejar de perder.</span>';
@@ -651,7 +651,7 @@ footer .meto{color:var(--muted);margin-top:4px}
         tx.innerHTML="Sus ventas cubren exactamente la totalidad de sus costos: no gana ni pierde. Cualquier suba de costos o caída de ventas lo lleva a pérdida. Hay poco margen de seguridad.";
       }else{
         var msPct2=(V-PE)/V*100;
-        sem.classList.add("margen");ico.textContent="✓";tt.textContent="Tu negocio es rentable";
+        sem.classList.add("margen");ico.textContent="✓";tt.textContent="Su negocio es rentable";
         tx.innerHTML="Vende "+fmtP(V)+", por encima de los "+fmtP(PE)+" que necesita para cubrir la totalidad de sus costos. Tiene un margen de seguridad del <b>"+fmtPct(msPct2)+"</b>.";
       }
     }
