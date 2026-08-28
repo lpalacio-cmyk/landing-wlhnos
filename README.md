@@ -20,9 +20,20 @@ el visitante inicie una conversación** (WhatsApp, formulario o teléfono).
 
 ```bash
 npm install
-npm run dev     # http://localhost:3000
-npm run build   # verificación de producción
+npm run dev       # http://localhost:3000
+npm run build     # verificación de producción
+npm run registro  # chequeo de registro ("usted") — corre solo antes de cada build
 ```
+
+### El chequeo de registro
+
+Todo el material de la firma trata de **usted**. La landing anterior mezclaba
+voseo en la página con usted en las calculadoras, y esa mezcla no se lee como
+cercanía: se lee como copiar y pegar de dos fuentes distintas.
+
+`scripts/verificar-registro.mjs` recorre el texto visible de `app/`, `components/`,
+`lib/` y las calculadoras, y **falla el build** si reaparece el voseo. Corre como
+`prebuild`, así que un descuido no llega a producción.
 
 ## Deploy en Vercel
 
@@ -45,21 +56,38 @@ previews con su propia URL.
 
 ```
 app/
-  layout.tsx            metadatos, tipografías, datos estructurados
-  page.tsx              la landing: composición de secciones
-  globals.css           tokens de marca y utilidades
-  api/contacto/route.ts recepción del formulario
+  layout.tsx             metadatos, tipografías, datos estructurados
+  page.tsx               la landing: composición de secciones
+  globals.css            tokens de marca y utilidades
+  privacidad/page.tsx    política de privacidad (Ley 25.326)
+  api/contacto/route.ts  recepción del formulario
 components/
-  sections/             una sección de la página por archivo
-  ui/                   primitivas: botones, logo, íconos, revelado al scroll
+  sections/              una sección de la página por archivo
+  ui/                    primitivas: botones, logo, íconos, revelado al scroll
 lib/
-  site.ts               datos institucionales, links de WhatsApp, navegación
-  contenido.ts          TODO el texto de la página, en un solo lugar
-  schema.ts             datos estructurados schema.org
+  site.ts                datos institucionales, links de WhatsApp, navegación
+  contenido.ts           TODO el texto de la página, en un solo lugar
+  schema.ts              datos estructurados schema.org
+  eventos.ts             micro-conversiones que se miden
+scripts/
+  verificar-registro.mjs chequeo de registro, corre como prebuild
 public/
-  herramientas/         las dos calculadoras (HTML estático autónomo)
-  images/               logo en sus variantes y fotos de los socios
+  herramientas/          las dos calculadoras (HTML estático autónomo)
+  images/                logo en sus variantes y fotos de los socios
+  og.png                 imagen de previsualización al compartir
 ```
+
+### El orden de la página
+
+    reconocimiento  hero · tres puertas de entrada
+    diagnóstico     el punto de partida · prediagnóstico
+    mecanismo       por qué una sola firma
+    alcance         sociedades · financiamiento PyME · individuos
+    profundidad     los tres niveles · el proceso
+    prueba          estándar normativo · el equipo
+    demostración    herramientas de cálculo
+    objeciones      preguntas frecuentes
+    acción          contacto
 
 ### Dónde editar el texto
 
@@ -93,6 +121,24 @@ en su lugar. Los nombres y cargos se editan en `lib/contenido.ts` → `equipo`.
 
 ## Herramientas
 
-Las dos calculadoras (`/herramientas/precio/` y `/herramientas/equilibrio/`) son
+Las dos calculadoras (`/herramientas/precio` y `/herramientas/equilibrio`) son
 HTML estático autónomo servido desde `public/`. No dependen de React ni del build:
 se pueden editar y publicar por separado.
+
+Next no mapea un directorio de `public/` a su `index.html`, así que las rutas
+limpias se resuelven con dos reescrituras en `next.config.mjs`. Si se agrega una
+tercera herramienta, hay que sumar su reescritura ahí.
+
+## Reglas que sostiene este sitio
+
+1. **Registro "usted"** en cada cadena visible. Lo verifica el build.
+2. **Nada que las propuestas de la firma no puedan respaldar.** Sin testimonios,
+   sin logos de clientes, sin porcentajes de ahorro, sin cantidad de clientes.
+3. **Los únicos números del sitio son los que carga el visitante** en las
+   calculadoras. Los años de trayectoria se calculan desde 2018 en tiempo de
+   render, nunca se escriben a mano.
+4. **El problema se atribuye siempre a la estructura del mercado**, nunca al
+   descuido del lector ni al trabajo de su contador actual.
+5. **Contraste AA en todos los pares.** Los colores de marca puros no lo
+   alcanzan como texto ni como relleno de botón: para eso están las variantes
+   oscurecidas, con el ratio anotado junto a cada token en `globals.css`.
