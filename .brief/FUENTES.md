@@ -5,6 +5,7 @@
 - Bajada institucional: **Asesoramiento Financiero Integral**
 - Firma: sociedad de profesionales en Ciencias Económicas, **nacida en 2018** → **más de 7 años de trayectoria**
 - Sede: provincia de **Catamarca**, Argentina. Alcance: todo el **Noroeste Argentino (NOA)**
+  [PENDIENTE: domicilio exacto. El material NO indica localidad; no asumir la capital.]
 - Tagline de cierre usado en todos los documentos: *"Equipo WL Hnos. y Asoc. / Visión integral y estratégica para sus decisiones financieras"*
 - Contacto: **+54 9 3834 506588** · **estudio@wlhnos.com** · **wlhnos.com** · WhatsApp: https://wa.link/69asix
 - C.U.I.T. 30-71864062-4
@@ -109,6 +110,18 @@ Cierre: "¿Listo para financiar su crecimiento al menor costo posible? Agendemos
 | Interlocución | Equipo profesional asignado · revisión anual | Gerente asignado · reunión trimestral de gestión | Socio · reunión mensual de gestión |
 
 Servicios por proyecto (disponibles en los tres niveles): consultoría financiera integral, defensa fiscal ante inspecciones y determinaciones de oficio, estructuración patrimonial. Se cotizan mediante propuesta previa a cada trabajo ("estructuración + comisión de éxito").
+Condiciones textuales de la propuesta económica (verbatim del .docx):
+- "El cambio de nivel podrá solicitarse en cualquier momento y regirá a partir del mes siguiente."
+- "Actualización: los honorarios se revisan trimestralmente conforme al IPC publicado por el INDEC."
+- "Inicio: la prestación comienza una vez recibida la documentación detallada en el listado de requerimientos adjunto."
+- "la defensa fiscal ante inspecciones y determinaciones de oficio iniciadas mediante orden de intervención"
+- Importe: "$ [ ] + IVA por mes" → el nivel se contrata como **abono mensual, más IVA**. El importe está en blanco; la unidad de medida y la condición fiscal, no.
+- "Períodos fiscales o ejercicios anteriores al inicio de la relación profesional, que se cotizan por separado."
+
+Verbatim de la propuesta de Financiamiento PyME, etapa 03:
+- "Gestión activa de garantías: tramitación de avales de S.G.R. e **interlocución técnica con la entidad durante todo el análisis**."
+- "Seguimiento del expediente: acompañamiento hasta la aprobación, con reporte periódico de estado."
+
 Condiciones: honorarios revisados trimestralmente por IPC-INDEC; el nivel se dimensiona por ventas/compras, sucursales, jurisdicciones, regímenes, convenios colectivos, operaciones en moneda extranjera/comercio exterior, composición accionaria y nómina.
 IMPORTANTE: **los importes están en blanco en la propuesta ("$ [ ] + IVA por mes"). NO inventar precios en la web.**
 

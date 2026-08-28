@@ -119,8 +119,9 @@ export default function Contacto() {
               </p>
               <FormularioContacto />
               <p className="mt-4 text-[12.5px] leading-relaxed text-claro-tenue">
-                La información que nos envíe queda amparada por el secreto profesional que rige el
-                ejercicio de las Ciencias Económicas.
+                Sus datos se usan únicamente para responderle. La información que nos confíe en el
+                marco de una relación profesional queda además amparada por el secreto profesional
+                que rige el ejercicio de las Ciencias Económicas.
               </p>
             </div>
           </Revelar>

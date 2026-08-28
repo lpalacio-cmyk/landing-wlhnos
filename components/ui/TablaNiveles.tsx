@@ -1,3 +1,4 @@
+import EnlaceMedido from './EnlaceMedido'
 import { Check, WhatsApp } from './icons'
 import { wa } from '@/lib/site'
 
@@ -41,10 +42,14 @@ const NIVELES = [
 const FILAS = [
   {
     dimension: 'Perímetro',
+    // El Nivel 02 trabaja MÁS sobre el MISMO perímetro: acá no hay incremento,
+    // y marcarlo con "+" borraría justamente lo que la firma quiere mostrar.
+    incremento: [false, false, true],
     valores: ['La sociedad', 'La sociedad', 'La sociedad y los socios como personas humanas'],
   },
   {
     dimension: 'Contable',
+    incremento: [false, true, true],
     valores: [
       'Registración en libro diario',
       'Estados contables anuales',
@@ -53,6 +58,7 @@ const FILAS = [
   },
   {
     dimension: 'Tributario y laboral',
+    incremento: [false, true, true],
     valores: [
       'IVA, Ingresos Brutos, Tasa de Seguridad e Higiene, regímenes de información, liquidación de haberes y cargas sociales, y contestación de intimaciones',
       'Proyección anual de la carga fiscal, revisión de encuadres y alternativas de ahorro, y declaraciones juradas de Ganancias y Bienes Personales (Acciones y Participaciones)',
@@ -61,6 +67,7 @@ const FILAS = [
   },
   {
     dimension: 'Financiamiento',
+    incremento: [false, true, true],
     valores: [
       'Preparación de información para presentación bancaria',
       'Diagnóstico y diseño del endeudamiento óptimo, y confección de legajos para presentación ante S.G.R.',
@@ -69,6 +76,7 @@ const FILAS = [
   },
   {
     dimension: 'Mercado de capitales',
+    incremento: [false, true, true],
     valores: [
       'Acceso a instrumentos financieros',
       'Diseño de estrategias de colocación de excedentes',
@@ -77,6 +85,8 @@ const FILAS = [
   },
   {
     dimension: 'Asesoramiento',
+    // Reemplaza la modalidad del nivel anterior, no la acumula.
+    incremento: [false, false, false],
     valores: [
       'Consultas puntuales, cotizadas por separado',
       'Dos horas mensuales incluidas',
@@ -85,6 +95,8 @@ const FILAS = [
   },
   {
     dimension: 'Interlocución',
+    // No es acumulativo: cambia el interlocutor, no se suma uno.
+    incremento: [false, false, false],
     valores: [
       'Equipo profesional asignado · revisión anual',
       'Gerente asignado · reunión trimestral de gestión',
@@ -154,8 +166,8 @@ export default function TablaNiveles() {
                         NIVELES[j].destacado ? 'bg-celeste-50/45' : ''
                       }`}
                     >
-                      {j > 0 && (
-                        <span aria-hidden="true" className="mr-1.5 font-display font-semibold text-verde-700">
+                      {fila.incremento[j] && (
+                        <span aria-hidden="true" className="mr-1.5 font-display font-semibold text-verde-800">
                           +
                         </span>
                       )}
@@ -178,14 +190,14 @@ export default function TablaNiveles() {
                     <span className="block font-display text-[13.5px] font-semibold text-navy">
                       Según alcance
                     </span>
-                    <a
+                    <span className="mt-0.5 block text-[12.5px] text-tenue">Abono mensual, más IVA.</span>
+                    <EnlaceMedido
                       href={wa.niveles}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      origen="niveles"
                       className="mt-1.5 inline-flex items-center gap-1.5 text-[13px] font-semibold text-celeste-700 underline underline-offset-2 transition-colors hover:text-navy"
                     >
                       Solicitar propuesta
-                    </a>
+                    </EnlaceMedido>
                   </td>
                 ))}
               </tr>
@@ -227,8 +239,8 @@ export default function TablaNiveles() {
                 <div key={fila.dimension} className="px-5 py-3.5">
                   <dt className="ordinal text-tenue">{fila.dimension.toUpperCase()}</dt>
                   <dd className="mt-1 flex items-start gap-1.5 text-[13.5px] leading-[1.55] text-tinta-2">
-                    {j > 0 && (
-                      <span aria-hidden="true" className="font-display font-semibold text-verde-700">
+                    {fila.incremento[j] && (
+                      <span aria-hidden="true" className="font-display font-semibold text-verde-800">
                         +
                       </span>
                     )}
@@ -238,16 +250,19 @@ export default function TablaNiveles() {
               ))}
             </dl>
 
-            <div className="border-t border-borde bg-papel px-5 py-4">
-              <a
+            <div className="border-t border-borde bg-white px-5 py-4">
+              <p className="mb-3 text-[13px] text-tinta-2">
+                <span className="font-display font-semibold text-navy">Honorarios según alcance.</span>{' '}
+                Abono mensual, más IVA.
+              </p>
+              <EnlaceMedido
                 href={wa.niveles}
-                target="_blank"
-                rel="noopener noreferrer"
+                origen="niveles"
                 className={`boton w-full ${n.destacado ? 'boton-primario' : 'boton-secundario'}`}
               >
                 <WhatsApp size={15} />
                 Solicitar propuesta
-              </a>
+              </EnlaceMedido>
             </div>
           </div>
         ))}

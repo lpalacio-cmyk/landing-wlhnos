@@ -22,12 +22,34 @@ const DIRECTORIOS = ['app', 'components', 'lib', 'public/herramientas']
 const EXTENSIONES = new Set(['.ts', '.tsx', '.html', '.mdx', '.md'])
 const EXCLUIR = ['node_modules', '.next', '.git', 'scripts']
 
-/** Formas voseantes, imperativos incluidos. */
+/**
+ * Formas voseantes, imperativos incluidos.
+ *
+ * Todos los patrones llevan la bandera `u` y usan `(?<![\p{L}])` / `(?![\p{L}])`
+ * en lugar de `\b`. El motivo: sin `u`, `\b` trabaja sobre el alfabeto ASCII,
+ * así que una vocal acentuada no cuenta como carácter de palabra y `\bCargá\b`
+ * no llega a coincidir nunca. Con `\b` los imperativos voseantes —que en
+ * español terminan justamente en vocal acentuada— pasaban todos sin detectarse.
+ */
 const PATRONES = [
-  { re: /\b[Tt]us?\b(?!\s*[=:])/g, nombre: 'posesivo "tu/tus"' },
-  { re: /\b[Vv]os\b/g, nombre: 'pronombre "vos"' },
-  { re: /\b(?:querés|podés|tenés|sabés|vendés|comprás|ganás|perdés|necesitás|buscás|cobrás|superás|estás|tomás|hacés|decidís|elegís|recibís)\b/gi, nombre: 'verbo voseante' },
-  { re: /\b(?:Cargá|Probá|Descubrí|Conocé|Usá|Revisá|Bajá|Agendá|Completá|Mirá|Pensá|Fijate|Llevate|Descomponé|Escribinos|Contactanos|Sumate|Entrá|Mandá|Hacé|Elegí|Empezá|Calculá|Descargá)\b/g, nombre: 'imperativo voseante' },
+  { re: /(?<![\p{L}])[Tt]us?(?![\p{L}])(?!\s*[=:])/gu, nombre: 'posesivo "tu/tus"' },
+  { re: /(?<![\p{L}])[Vv]os(?![\p{L}])/gu, nombre: 'pronombre "vos"' },
+  {
+    re: /(?<![\p{L}])(?:querés|podés|tenés|sabés|vendés|comprás|ganás|perdés|necesitás|buscás|cobrás|superás|estás|tomás|hacés|decidís|elegís|recibís|vivís|salís|venís|seguís|preferís|invertís|cumplís)(?![\p{L}])/giu,
+    nombre: 'verbo voseante',
+  },
+  {
+    re: /(?<![\p{L}])(?:vas|irás|tendrás|podrás|verás|obtendrás|deberás|sabrás|harás|dirás|estarás|serás|querrás|pondrás|vendrás)(?![\p{L}])/giu,
+    nombre: 'futuro o perífrasis en segunda persona',
+  },
+  {
+    re: /(?<![\p{L}])(?:tuyo|tuya|tuyos|tuyas|contigo)(?![\p{L}])/giu,
+    nombre: 'pronombre de segunda persona',
+  },
+  {
+    re: /(?<![\p{L}])(?:Cargá|Probá|Descubrí|Conocé|Usá|Revisá|Bajá|Agendá|Completá|Mirá|Pensá|Fijate|Llevate|Descomponé|Escribinos|Contactanos|Sumate|Entrá|Mandá|Hacé|Elegí|Empezá|Calculá|Descargá|Ingresá|Sumá|Compará|Aprovechá|Consultá|Enterate|Registrate|Anotate|Pedí|Escribí|Averiguá|Fijate|Chequeá|Tené|Poné|Vení|Andá|Dejá|Contá|Sacá|Buscá|Elegi)(?![\p{L}])/gu,
+    nombre: 'imperativo voseante',
+  },
 ]
 
 /**

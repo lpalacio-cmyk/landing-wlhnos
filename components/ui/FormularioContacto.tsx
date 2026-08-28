@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, type FormEvent } from 'react'
-import { Check, Flecha } from './icons'
-import { formularioEnviado } from '@/lib/eventos'
+import { Check, Flecha, WhatsApp } from './icons'
+import { clicTelefono, clicWhatsApp, formularioEnviado } from '@/lib/eventos'
+import { site, wa } from '@/lib/site'
 
 const PERFILES = [
   { valor: 'sociedad', etiqueta: 'Tengo una sociedad', detalle: 'Empresa constituida' },
@@ -11,7 +12,7 @@ const PERFILES = [
   { valor: 'otro', etiqueta: 'Otra consulta', detalle: '' },
 ] as const
 
-type Estado = 'inicial' | 'enviando' | 'listo' | 'error'
+type Estado = 'inicial' | 'enviando' | 'listo' | 'derivar' | 'error'
 
 export default function FormularioContacto({
   perfilInicial = 'sociedad',
@@ -21,6 +22,7 @@ export default function FormularioContacto({
   const [perfil, setPerfil] = useState<string>(perfilInicial)
   const [estado, setEstado] = useState<Estado>('inicial')
   const [error, setError] = useState('')
+  const [enlaceWhatsApp, setEnlaceWhatsApp] = useState('')
 
   async function enviar(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -56,10 +58,20 @@ export default function FormularioContacto({
 
       formularioEnviado(perfil, Boolean(resultado.entregado))
 
-      // Sin proveedor de correo configurado, la consulta se deriva a WhatsApp
-      // con el texto ya redactado, para que no se pierda.
+      /*
+       * Si no hay proveedor de correo configurado, la consulta NO llegó al
+       * Estudio. Decirle igual "recibimos su consulta" sería lo peor posible:
+       * el visitante se queda esperando una respuesta que nadie va a mandar.
+       *
+       * Tampoco sirve abrir WhatsApp con window.open desde acá: la llamada
+       * ocurre después de un await, fuera de la pila del gesto del usuario, y
+       * los navegadores la bloquean como ventana emergente. Por eso se muestra
+       * un enlace que la persona toca, que sí abre la aplicación.
+       */
       if (!resultado.entregado && resultado.whatsapp) {
-        window.open(resultado.whatsapp, '_blank', 'noopener,noreferrer')
+        setEnlaceWhatsApp(resultado.whatsapp)
+        setEstado('derivar')
+        return
       }
       setEstado('listo')
     } catch {
@@ -71,16 +83,66 @@ export default function FormularioContacto({
   if (estado === 'listo') {
     return (
       <div className="tarjeta flex flex-col items-start gap-4 p-7 sm:p-9">
-        <span className="grid h-11 w-11 place-items-center rounded-full bg-verde-50 text-verde-700">
+        <span className="grid h-11 w-11 place-items-center rounded-full bg-verde-50 text-verde-800">
           <Check size={22} />
         </span>
         <div>
           <h3 className="titular-3 text-navy">Recibimos su consulta</h3>
           <p className="mt-2.5 max-w-md text-[15px] leading-relaxed text-tinta-2">
-            Le respondemos dentro de las próximas 24 horas hábiles. Si necesita una respuesta más
-            rápida, escríbanos por WhatsApp y lo atendemos en el momento.
+            Le respondemos a la brevedad. Si necesita una respuesta inmediata, escríbanos por
+            WhatsApp y lo atendemos en el momento.
           </p>
         </div>
+        <a
+          href={wa.general}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => clicWhatsApp('contacto')}
+          className="boton boton-primario"
+        >
+          <WhatsApp size={16} />
+          Escribirnos por WhatsApp
+        </a>
+      </div>
+    )
+  }
+
+  /*
+   * El correo no está configurado: la consulta todavía NO llegó al Estudio y
+   * hay que decirlo con todas las letras, con el mensaje ya redactado a un
+   * toque de distancia.
+   */
+  if (estado === 'derivar') {
+    return (
+      <div className="tarjeta flex flex-col items-start gap-4 p-7 sm:p-9">
+        <span className="grid h-11 w-11 place-items-center rounded-full bg-naranja-50 text-naranja-700">
+          <WhatsApp size={22} />
+        </span>
+        <div>
+          <h3 className="titular-3 text-navy">Falta un paso: envíela por WhatsApp</h3>
+          <p className="mt-2.5 max-w-md text-[15px] leading-relaxed text-tinta-2">
+            Su consulta todavía no llegó al Estudio. Ya la redactamos con los datos que cargó:
+            toque el botón, revísela y envíela. También puede llamarnos al{' '}
+            <a
+              href={`tel:${site.telefonoE164}`}
+              onClick={() => clicTelefono('contacto')}
+              className="font-semibold text-celeste-700 underline underline-offset-2"
+            >
+              {site.telefono}
+            </a>
+            .
+          </p>
+        </div>
+        <a
+          href={enlaceWhatsApp}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={() => clicWhatsApp('contacto')}
+          className="boton boton-primario"
+        >
+          <WhatsApp size={16} />
+          Enviar la consulta por WhatsApp
+        </a>
       </div>
     )
   }

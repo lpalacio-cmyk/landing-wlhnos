@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Logo from './Logo'
 import { Cerrar, Menu, WhatsApp } from './icons'
+import { clicTelefono, clicWhatsApp } from '@/lib/eventos'
 import { nav, site, wa } from '@/lib/site'
 
 export default function Navegacion() {
@@ -93,6 +94,7 @@ export default function Navegacion() {
           <div className="flex items-center gap-2">
             <a
               href={`tel:${site.telefonoE164}`}
+              onClick={() => clicTelefono('navegacion')}
               className="hidden whitespace-nowrap text-[13.5px] font-semibold text-tinta-2 transition-colors hover:text-navy xl:inline-flex"
             >
               {site.telefono}
@@ -101,6 +103,7 @@ export default function Navegacion() {
               href={wa.general}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => clicWhatsApp('navegacion')}
               className="boton boton-primario boton-chico whitespace-nowrap"
             >
               <WhatsApp size={15} />
@@ -159,7 +162,10 @@ export default function Navegacion() {
               href={wa.general}
               target="_blank"
               rel="noopener noreferrer"
-              onClick={() => setAbierta(false)}
+              onClick={() => {
+                clicWhatsApp('navegacion')
+                setAbierta(false)
+              }}
               className="boton boton-primario w-full"
             >
               <WhatsApp size={16} />
@@ -168,7 +174,10 @@ export default function Navegacion() {
             <a
               href={`tel:${site.telefonoE164}`}
               className="boton boton-secundario w-full"
-              onClick={() => setAbierta(false)}
+              onClick={() => {
+                clicTelefono('navegacion')
+                setAbierta(false)
+              }}
             >
               Llamar al {site.telefono}
             </a>

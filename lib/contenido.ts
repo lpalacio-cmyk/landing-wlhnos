@@ -305,7 +305,7 @@ export const financiamiento = {
 
 export const metodo = {
   eyebrow: 'Cómo trabajamos',
-  titulo: 'Tres etapas, y lo que recibe en documentos',
+  titulo: 'Tres etapas, y lo que recibe al final de cada una',
   etapas: [
     {
       orden: '01',
@@ -330,13 +330,13 @@ export const metodo = {
       entregable: 'Legajo crediticio completo, más gestión y seguimiento del expediente hasta su acreditación.',
     },
   ],
-  tituloEntregables: 'Qué recibe, en documentos',
+  tituloEntregables: 'Qué recibe al terminar el trabajo',
   entregables: [
     'Informe de diagnóstico financiero con la necesidad cuantificada y la capacidad de repago determinada.',
     'Comparativo de alternativas de financiamiento, valuadas por costo financiero total efectivo.',
     'Recomendación fundamentada de estructura de endeudamiento.',
     'Legajo crediticio completo, en condiciones de ser presentado ante cualquier entidad.',
-    'Gestión y seguimiento de la operación hasta su acreditación.',
+    'Gestión y seguimiento de la operación ante la entidad, hasta su resolución.',
   ],
   honorarios:
     'Honorarios: honorario fijo por diagnóstico y diseño, más honorario por gestión exitosa. Se establecen antes de iniciar el trabajo y no incluyen los costos propios de la operación —sellados, comisiones de la entidad, aranceles de S.G.R. y gastos de constitución de garantías—, que se informan en el comparativo de la etapa 02.',
@@ -520,16 +520,34 @@ export const equipo = {
    * fotografías de banco de imágenes: se muestra la tarjeta institucional.
    */
   socios: [
-    {
-      clave: 'christian',
-      nombre: 'Christian Gabriel Walther Luna',
-      monograma: 'CW',
-      titulo: 'Contador Público · Universidad Nacional de Catamarca',
-      credencial: 'Asesor Financiero acreditado por el Instituto Español de Analistas Financieros (IEAF)',
-      area: 'Financiamiento y mercado de capitales',
-      foto: '/images/socios/christian-walther.jpg',
-    },
-  ],
+    // PENDIENTE de confirmación por escrito del Estudio antes de publicar:
+    // apellido y nombre completos, título profesional, número de matrícula y
+    // Consejo Profesional de inscripción, y el área a cargo de cada socio.
+    //
+    // Hasta entonces esta lista queda vacía a propósito y la sección muestra la
+    // tarjeta institucional (ver Equipo.tsx). Publicar un título profesional sin
+    // confirmarlo es, para una firma de matriculados, una afirmación que un
+    // visitante puede verificar y que el Consejo puede observar.
+    //
+    // Forma de cada entrada, lista para completar:
+    // {
+    //   clave: 'christian',
+    //   nombre: 'Christian Gabriel Walther Luna',
+    //   monograma: 'CW',
+    //   titulo: 'Contador Público · Matrícula N.º XXXX, C.P.C.E. Catamarca',
+    //   credencial: 'Asesor Financiero acreditado por el Instituto Español de Analistas Financieros (IEAF)',
+    //   area: 'Financiamiento y mercado de capitales',
+    //   foto: '/images/socios/christian-walther.jpg',
+    // },
+  ] as ReadonlyArray<{
+    clave: string
+    nombre: string
+    monograma: string
+    titulo: string
+    credencial?: string
+    area: string
+    foto?: string
+  }>,
 } as const
 
 export const herramientasSeccion = {

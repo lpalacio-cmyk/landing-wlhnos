@@ -11,7 +11,9 @@ export const site = {
   bajada: 'Asesoramiento Financiero Integral',
   tagline: 'Visión integral y estratégica para sus decisiones financieras',
   fundacion: 2018,
-  ciudad: 'San Fernando del Valle de Catamarca',
+  /* PENDIENTE: domicilio exacto. El material solo indica la provincia; no se
+     asume la capital, porque este dato viaja a Google en los datos estructurados. */
+  ciudad: 'Catamarca',
   provincia: 'Catamarca',
   region: 'Noroeste Argentino',
   pais: 'Argentina',

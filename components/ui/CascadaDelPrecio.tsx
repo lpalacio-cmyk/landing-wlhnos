@@ -1,4 +1,7 @@
+'use client'
+
 import { Flecha } from './icons'
+import { clicHerramienta } from '@/lib/eventos'
 
 /**
  * Cascada del precio: del precio de lista al ingreso que efectivamente queda.
@@ -67,6 +70,7 @@ export default function CascadaDelPrecio({ enlace }: { enlace?: string }) {
         {enlace && (
           <a
             href={enlace}
+            onClick={() => clicHerramienta('precio')}
             className="mt-4 inline-flex items-center gap-1.5 font-display text-[13.5px] font-semibold text-celeste-700 transition-colors hover:text-navy"
           >
             Calcularlo con sus números

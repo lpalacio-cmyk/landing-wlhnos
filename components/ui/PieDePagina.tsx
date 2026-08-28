@@ -1,3 +1,4 @@
+import EnlaceMedido from './EnlaceMedido'
 import Logo from './Logo'
 import { Mundo, Pin, Sobre, Telefono, WhatsApp } from './icons'
 import { herramientas, nav, site, wa } from '@/lib/site'
@@ -27,15 +28,14 @@ export default function PieDePagina() {
             <p className="mt-2 max-w-[34ch] text-[13.5px] leading-relaxed">
               {site.bajada}. Sociedad de profesionales en Ciencias Económicas, desde {site.fundacion}.
             </p>
-            <a
+            <EnlaceMedido
               href={wa.general}
-              target="_blank"
-              rel="noopener noreferrer"
+              origen="pie"
               className="boton boton-primario boton-chico mt-6"
             >
               <WhatsApp size={15} />
               Agendar una reunión
-            </a>
+            </EnlaceMedido>
           </div>
 
           {/* Navegación */}
@@ -80,13 +80,15 @@ export default function PieDePagina() {
             </h2>
             <ul className="mt-5 space-y-3.5">
               <li>
-                <a
+                <EnlaceMedido
                   href={`tel:${site.telefonoE164}`}
+                  origen="pie"
+                  tipo="telefono"
                   className="flex items-center gap-2.5 text-[13.5px] transition-colors hover:text-white"
                 >
                   <Telefono size={15} className="shrink-0 text-celeste-300" />
                   {site.telefono}
-                </a>
+                </EnlaceMedido>
               </li>
               <li>
                 <a

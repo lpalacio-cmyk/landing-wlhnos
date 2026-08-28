@@ -21,9 +21,15 @@ export function jsonLd() {
     logo: `${site.url}/images/logo.png`,
     image: `${site.url}/og.png`,
     priceRange: '$$',
+    /*
+     * Sin el domicilio confirmado del Estudio no se declara `addressLocality`:
+     * este bloque es el que Google usa para el panel de conocimiento y las
+     * búsquedas locales del NOA, y una localidad inventada es peor que ninguna.
+     * Cuando llegue la dirección, sumar `streetAddress`, `addressLocality` y
+     * `postalCode`.
+     */
     address: {
       '@type': 'PostalAddress',
-      addressLocality: site.ciudad,
       addressRegion: site.provincia,
       addressCountry: 'AR',
     },
