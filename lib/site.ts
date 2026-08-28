@@ -68,13 +68,13 @@ export const nav = [
 
 export const herramientas = [
   {
-    href: '/herramientas/precio/',
+    href: '/herramientas/precio',
     titulo: 'Calculadora de precio de venta',
     resumen:
       'Descomponga su precio hasta el ingreso real: IVA, Ingresos Brutos, tasa municipal, impuesto al cheque, retenciones, comisiones y costo financiero. Le devuelve a cuánto debería vender para alcanzar el margen que busca.',
   },
   {
-    href: '/herramientas/equilibrio/',
+    href: '/herramientas/equilibrio',
     titulo: 'Calculadora de punto de equilibrio',
     resumen:
       'Determine cuánto necesita facturar para cubrir la totalidad de sus costos y a partir de qué volumen su negocio empieza efectivamente a generar ganancia.',

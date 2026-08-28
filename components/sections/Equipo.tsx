@@ -86,9 +86,9 @@ export default function Equipo() {
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               {equipo.socios.map((s, i) => (
                 <Revelar key={s.clave} retardo={120 + i * 70}>
-                  <article className="overflow-hidden rounded-[1.25rem] border border-borde bg-papel shadow-plana">
+                  <article className="flex h-full flex-col overflow-hidden rounded-[1.25rem] border border-borde bg-white shadow-plana">
                     <FotoSocio foto={s.foto} nombre={s.nombre} monograma={s.monograma} />
-                    <div className="p-5">
+                    <div className="flex flex-1 flex-col p-5">
                       <h3 className="font-display text-[15px] font-semibold leading-snug text-navy">
                         {s.nombre}
                       </h3>
@@ -96,7 +96,7 @@ export default function Equipo() {
                       {s.credencial && (
                         <p className="mt-2 text-[12.5px] leading-snug text-tenue">{s.credencial}</p>
                       )}
-                      <p className="mt-3 border-t border-borde pt-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-celeste-700">
+                      <p className="mt-auto border-t border-borde pt-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-celeste-700">
                         {s.area}
                       </p>
                     </div>
@@ -108,7 +108,7 @@ export default function Equipo() {
                   todavía no están confirmados. Cuando estén los dos, sale. */}
               {equipo.socios.length < 2 && (
               <Revelar retardo={190}>
-                <article className="flex h-full flex-col justify-between rounded-[1.25rem] border border-borde bg-papel-3 p-5">
+                <article className="flex h-full flex-col justify-between rounded-[1.25rem] border border-borde bg-papel-2 p-5">
                   <div>
                     <Logo alto={40} conNombre={false} />
                     <h3 className="mt-5 font-display text-[15px] font-semibold leading-snug text-navy">
