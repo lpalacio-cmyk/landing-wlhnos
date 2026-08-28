@@ -1,17 +1,18 @@
 import type { SVGProps } from 'react'
 
-type IconProps = SVGProps<SVGSVGElement> & { size?: number }
+type IconProps = Omit<SVGProps<SVGSVGElement>, 'ref'> & { size?: number }
 
-function base({ size = 20, strokeWidth = 1.6, ...rest }: IconProps & { strokeWidth?: number }) {
+/** Atributos comunes a toda la iconografía: trazo fino, extremos redondeados. */
+function base({ size = 20, ...rest }: IconProps, grosor = 1.6): SVGProps<SVGSVGElement> {
   return {
     width: size,
     height: size,
     viewBox: '0 0 24 24',
     fill: 'none',
     stroke: 'currentColor',
-    strokeWidth,
-    strokeLinecap: 'round' as const,
-    strokeLinejoin: 'round' as const,
+    strokeWidth: grosor,
+    strokeLinecap: 'round',
+    strokeLinejoin: 'round',
     'aria-hidden': true,
     ...rest,
   }
@@ -44,7 +45,7 @@ export function FlechaAbajo(props: IconProps) {
 
 export function Check(props: IconProps) {
   return (
-    <svg {...base({ strokeWidth: 2.2, ...props })}>
+    <svg {...base(props, 2.2)}>
       <path d="M4 12.5 9 17.5 20 6.5" />
     </svg>
   )
@@ -52,7 +53,7 @@ export function Check(props: IconProps) {
 
 export function Mas(props: IconProps) {
   return (
-    <svg {...base({ strokeWidth: 2, ...props })}>
+    <svg {...base(props, 2)}>
       <path d="M12 5v14M5 12h14" />
     </svg>
   )
@@ -200,7 +201,7 @@ export function Reloj(props: IconProps) {
 
 export function Menu(props: IconProps) {
   return (
-    <svg {...base({ strokeWidth: 1.8, ...props })}>
+    <svg {...base(props, 1.8)}>
       <path d="M4 7h16M4 12h16M4 17h16" />
     </svg>
   )
@@ -208,7 +209,7 @@ export function Menu(props: IconProps) {
 
 export function Cerrar(props: IconProps) {
   return (
-    <svg {...base({ strokeWidth: 1.8, ...props })}>
+    <svg {...base(props, 1.8)}>
       <path d="M6 6l12 12M18 6L6 18" />
     </svg>
   )

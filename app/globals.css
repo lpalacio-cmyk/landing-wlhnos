@@ -1,0 +1,378 @@
+@import 'tailwindcss';
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SISTEMA DE DISEÑO — WL Hnos. y Asoc.
+
+   Base: paleta del manual de marca 2025 (#102250 navy · #1595BC celeste ·
+   #1C913D verde · #EA5E2D naranja · #6C6D6D gris).
+
+   Ajuste: los colores de marca puros no alcanzan el contraste AA cuando se usan
+   como texto o como relleno de botón (celeste 3.47:1, verde 4.06:1 y naranja
+   3.42:1 sobre blanco). Se conservan tal cual para gráficos y superficies
+   grandes, y se agregan variantes oscurecidas —verificadas una por una— para
+   todo lo que sea texto, enlace o botón. Cada par lleva su ratio anotado.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@theme {
+  /* ── Azul institucional ──────────────────────────────────────────────── */
+  --color-abismo:     #0a1533;  /* fondo oscuro más profundo */
+  --color-navy:       #102250;  /* MARCA — azul principal */
+  --color-navy-700:   #162c60;
+  --color-navy-500:   #23407f;
+  --color-navy-300:   #4d68a3;
+
+  /* ── Celeste ─────────────────────────────────────────────────────────── */
+  --color-celeste:      #1595bc;  /* MARCA — solo gráficos y superficies */
+  --color-celeste-700:  #0e7091;  /* texto y enlaces · 5.61:1 sobre blanco */
+  --color-celeste-600:  #0f7b9d;  /* relleno de botón · 4.84:1 con texto blanco */
+  --color-celeste-300:  #6bc2dc;  /* acento sobre fondo oscuro · 7.59:1 */
+  --color-celeste-100:  #cfeaf3;
+  --color-celeste-50:   #eaf6fa;
+
+  /* ── Verde (acción / WhatsApp) ───────────────────────────────────────── */
+  --color-verde:      #1c913d;  /* MARCA — gráficos */
+  --color-verde-700:  #177a33;  /* relleno de botón · 5.43:1 con texto blanco */
+  --color-verde-800:  #136529;  /* estado hover */
+  --color-verde-50:   #ecf7ef;
+
+  /* ── Naranja (señalamiento, uso escaso) ──────────────────────────────── */
+  --color-naranja:      #ea5e2d;  /* MARCA — gráficos */
+  --color-naranja-700:  #c64716;  /* texto · 4.87:1 sobre blanco */
+  --color-naranja-50:   #fff4ef;
+
+  /* ── Superficies ─────────────────────────────────────────────────────── */
+  --color-papel:    #ffffff;
+  --color-papel-2:  #f5f7fa;
+  --color-papel-3:  #edf1f6;
+  --color-borde:        #dfe5ee;
+  --color-borde-fuerte: #cbd5e3;
+
+  /* ── Texto sobre claro ───────────────────────────────────────────────── */
+  --color-tinta:    #0d1b3f;  /* 16.86:1 */
+  --color-tinta-2:  #4a5a7a;  /*  6.92:1 */
+  --color-tenue:    #5f6b84;  /*  5.35:1 — válido también sobre papel-2 y papel-3 */
+
+  /* ── Texto sobre oscuro ──────────────────────────────────────────────── */
+  --color-claro:        #ffffff;
+  --color-claro-2:      #c7d2e4;  /* 10.07:1 sobre navy */
+  --color-claro-tenue:  #8fa0bf;  /*  5.82:1 sobre navy */
+
+  /* ── Tipografía ──────────────────────────────────────────────────────── */
+  --font-display: var(--fuente-display), 'Poppins', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--fuente-cuerpo), 'Open Sans', ui-sans-serif, system-ui, sans-serif;
+
+  /* ── Sombras: tintadas en azul, nunca en negro puro ──────────────────── */
+  --shadow-plana:    0 1px 2px rgb(13 27 63 / 0.04), 0 1px 1px rgb(13 27 63 / 0.03);
+  --shadow-tarjeta:  0 1px 3px rgb(13 27 63 / 0.05), 0 6px 16px -6px rgb(13 27 63 / 0.07);
+  --shadow-elevada:  0 2px 6px rgb(13 27 63 / 0.06), 0 16px 32px -12px rgb(13 27 63 / 0.14);
+  --shadow-flotante: 0 8px 28px -6px rgb(13 27 63 / 0.20);
+
+  /* ── Radios ──────────────────────────────────────────────────────────── */
+  --radius-boton:   0.625rem;
+  --radius-tarjeta: 1rem;
+  --radius-panel:   1.375rem;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BASE
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* La barra de navegación mide 68 px: evita que tape el título al saltar a un ancla. */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-papel);
+    color: var(--color-tinta);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.022em;
+    line-height: 1.14;
+    text-wrap: balance;
+  }
+
+  p { text-wrap: pretty; }
+
+  /* Foco visible y consistente en todo el sitio. */
+  :focus-visible {
+    outline: 2px solid var(--color-celeste-600);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-celeste) 24%, transparent);
+    color: var(--color-tinta);
+  }
+
+  /* Cifras alineadas en tablas y datos: evita que los números "bailen". */
+  .cifras { font-variant-numeric: tabular-nums; }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   COMPONENTES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer components {
+  /* ── Contenedor ──────────────────────────────────────────────────────── */
+  .contenedor {
+    width: 100%;
+    max-width: 76rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 640px)  { .contenedor { padding-inline: 2rem; } }
+  @media (min-width: 1024px) { .contenedor { padding-inline: 2.5rem; } }
+
+  .contenedor-angosto { max-width: 52rem; }
+
+  /* ── Ritmo vertical de sección ───────────────────────────────────────── */
+  .seccion { padding-block: 4.5rem; }
+  @media (min-width: 768px)  { .seccion { padding-block: 6rem; } }
+  @media (min-width: 1024px) { .seccion { padding-block: 7rem; } }
+
+  /* ── Etiqueta que encabeza cada sección ──────────────────────────────── */
+  .etiqueta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--color-celeste-700);
+  }
+  .etiqueta::before {
+    content: '';
+    width: 1.75rem;
+    height: 1px;
+    background-color: currentColor;
+    opacity: 0.55;
+  }
+  .etiqueta-clara { color: var(--color-celeste-300); }
+
+  /* ── Titulares ───────────────────────────────────────────────────────── */
+  .titular-1 {
+    font-size: clamp(2.125rem, 1.35rem + 3.1vw, 3.75rem);
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+    font-weight: 600;
+  }
+  .titular-2 {
+    font-size: clamp(1.75rem, 1.28rem + 1.85vw, 2.625rem);
+    line-height: 1.12;
+    letter-spacing: -0.026em;
+    font-weight: 600;
+  }
+  .titular-3 {
+    font-size: clamp(1.1875rem, 1.08rem + 0.5vw, 1.4375rem);
+    line-height: 1.28;
+    letter-spacing: -0.018em;
+    font-weight: 600;
+  }
+  .bajada {
+    font-size: clamp(1.0625rem, 1.01rem + 0.28vw, 1.1875rem);
+    line-height: 1.65;
+    color: var(--color-tinta-2);
+  }
+
+  /* ── Botones ─────────────────────────────────────────────────────────── */
+  .boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-display);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    line-height: 1;
+    padding: 0.875rem 1.375rem;
+    border-radius: var(--radius-boton);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: background-color 180ms ease, border-color 180ms ease,
+                color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+  }
+  .boton:active { transform: translateY(1px); }
+
+  /* Verde para la acción principal: es la que lleva a WhatsApp. */
+  .boton-primario {
+    background-color: var(--color-verde-700);
+    color: #fff;
+    box-shadow: var(--shadow-plana);
+  }
+  .boton-primario:hover { background-color: var(--color-verde-800); box-shadow: var(--shadow-tarjeta); }
+
+  .boton-navy { background-color: var(--color-navy); color: #fff; box-shadow: var(--shadow-plana); }
+  .boton-navy:hover { background-color: var(--color-navy-700); box-shadow: var(--shadow-tarjeta); }
+
+  .boton-secundario {
+    background-color: var(--color-papel);
+    color: var(--color-navy);
+    border-color: var(--color-borde-fuerte);
+  }
+  .boton-secundario:hover { border-color: var(--color-navy-300); background-color: var(--color-papel-2); }
+
+  .boton-fantasma-claro {
+    background-color: color-mix(in srgb, #fff 10%, transparent);
+    color: #fff;
+    border-color: color-mix(in srgb, #fff 26%, transparent);
+  }
+  .boton-fantasma-claro:hover { background-color: color-mix(in srgb, #fff 18%, transparent); border-color: color-mix(in srgb, #fff 42%, transparent); }
+
+  .boton-chico { padding: 0.625rem 1rem; font-size: 0.875rem; }
+
+  /* ── Tarjetas ────────────────────────────────────────────────────────── */
+  .tarjeta {
+    background-color: var(--color-papel);
+    border: 1px solid var(--color-borde);
+    border-radius: var(--radius-tarjeta);
+    box-shadow: var(--shadow-plana);
+    transition: box-shadow 220ms ease, border-color 220ms ease, transform 220ms ease;
+  }
+  .tarjeta-viva:hover {
+    box-shadow: var(--shadow-elevada);
+    border-color: var(--color-borde-fuerte);
+    transform: translateY(-2px);
+  }
+  .tarjeta-oscura {
+    background-color: color-mix(in srgb, #fff 5%, transparent);
+    border: 1px solid color-mix(in srgb, #fff 12%, transparent);
+    border-radius: var(--radius-tarjeta);
+  }
+
+  /* ── Numeración de secciones (01 / 02 / 03), como en las propuestas ──── */
+  .ordinal {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Campos de formulario ────────────────────────────────────────────── */
+  .campo {
+    width: 100%;
+    background-color: var(--color-papel);
+    border: 1px solid var(--color-borde-fuerte);
+    border-radius: 0.625rem;
+    padding: 0.75rem 0.875rem;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    color: var(--color-tinta);
+    transition: border-color 160ms ease, box-shadow 160ms ease;
+  }
+  .campo::placeholder { color: var(--color-tenue); }
+  .campo:focus {
+    outline: none;
+    border-color: var(--color-celeste-600);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-celeste) 18%, transparent);
+  }
+  .etiqueta-campo {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-tinta);
+    margin-bottom: 0.375rem;
+  }
+
+  /* ── Regla fina con degradado, para separar bloques sin peso visual ──── */
+  .regla {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--color-borde) 12%, var(--color-borde) 88%, transparent);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   UTILIDADES
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer utilities {
+  /* Revelado al entrar en viewport (ver components/ui/Revelar.tsx). */
+  .revelar {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 620ms cubic-bezier(0.22, 1, 0.36, 1),
+                transform 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .revelar[data-visible='true'] { opacity: 1; transform: none; }
+
+  /* Trama de puntos muy tenue para las secciones oscuras. */
+  .trama-puntos {
+    background-image: radial-gradient(circle at center, rgb(255 255 255 / 0.055) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+
+  /* Trama de cuadrícula para el fondo del hero. */
+  .trama-grilla {
+    background-image:
+      linear-gradient(to right, rgb(16 34 80 / 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(16 34 80 / 0.045) 1px, transparent 1px);
+    background-size: 68px 68px;
+  }
+
+  .enmascarar-bordes {
+    mask-image: radial-gradient(ellipse 80% 62% at 50% 40%, #000 45%, transparent 100%);
+  }
+
+  /* Enlace de salto: invisible hasta que llega el foco por teclado. */
+  .saltar-al-contenido {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    transform: translateY(-160%);
+    background-color: var(--color-navy);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0.625rem 1rem;
+    border-radius: 0.5rem;
+    box-shadow: var(--shadow-flotante);
+    transition: transform 180ms ease;
+  }
+  .saltar-al-contenido:focus-visible { transform: translateY(0); }
+
+  /* Ocultar visualmente sin ocultar a los lectores de pantalla. */
+  .solo-lectores {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   ACCESIBILIDAD: quien pidió menos movimiento, no ve movimiento.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .revelar { opacity: 1; transform: none; }
+}
