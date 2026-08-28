@@ -66,7 +66,7 @@ export const wa = {
  */
 export function waNivel(orden: string, nombre: string): string {
   return waLink(
-    `Hola. Vi los tres niveles de servicio en la web y quisiera una propuesta económica para mi empresa, en el Nivel ${orden} ${nombre}.`,
+    `Hola. Vi los tres niveles de servicio en la web y quisiera una propuesta económica del Nivel ${orden} ${nombre} para mi empresa.`,
   )
 }
 

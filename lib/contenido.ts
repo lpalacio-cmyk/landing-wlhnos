@@ -99,7 +99,7 @@ export const situacion = {
   eyebrow: 'Prediagnóstico',
   titulo: '¿En cuántas de estas situaciones se reconoce?',
   bajada:
-    'Son las mismas preguntas con las que empezamos la primera reunión. Marque las que correspondan y la página le arma el mensaje.',
+    'Son los mismos puntos que repasamos en la primera reunión. Marque los que correspondan a su empresa.',
   nota: 'Esto no reemplaza un diagnóstico. Sirve para que la primera conversación empiece donde corresponde.',
   situaciones: [
     { id: '01', frente: 'estructura de financiamiento', texto: 'Sostiene capital de trabajo con descubierto en cuenta corriente.' },
@@ -116,7 +116,7 @@ export const situacion = {
 
 export const integracion = {
   eyebrow: 'Por qué una sola firma',
-  titulo: 'Esa integración no es un detalle organizativo.',
+  titulo: 'Integrar las cinco áreas no es un detalle organizativo.',
   bajada:
     'Es lo que permite evaluar una decisión de financiamiento también por su impacto impositivo, por su efecto sobre los estados contables y por las alternativas disponibles fuera del circuito bancario tradicional.',
   introPlanos: 'Cada operación se evalúa en tres planos simultáneos.',
@@ -284,7 +284,7 @@ export const financiamiento = {
       orden: '06',
       titulo: 'Confidencialidad y rigor normativo',
       texto:
-        'La información patrimonial y financiera que nos confía queda amparada por el secreto profesional que rige el ejercicio de las Ciencias Económicas.',
+        'El legajo, los estados contables y la información de deuda que se prepara para una operación no salen del ámbito de la entidad a la que se presentan, y quedan alcanzados por el secreto profesional que rige el ejercicio de las Ciencias Económicas.',
     },
   ],
   tituloInstrumentos: 'Instrumentos y fuentes de financiamiento con los que operamos',
@@ -332,7 +332,7 @@ export const metodo = {
       entregable: 'Legajo crediticio completo, más gestión y seguimiento del expediente hasta su acreditación.',
     },
   ],
-  tituloEntregables: 'Qué recibe al terminar el trabajo',
+  tituloEntregables: 'Qué queda documentado',
   entregables: [
     'Informe de diagnóstico financiero con la necesidad cuantificada y la capacidad de repago determinada.',
     'Comparativo de alternativas de financiamiento, valuadas por costo financiero total efectivo.',
@@ -350,7 +350,7 @@ export const metodo = {
 export const individuos = {
   eyebrow: 'Personas humanas',
   titulo: 'Asesoramiento integral para individuos',
-  bajada: 'Su patrimonio, organizado. Sus impuestos, optimizados. Su tiempo, liberado.',
+  bajada: 'Su patrimonio, organizado. Sus impuestos, optimizados. Sus inversiones, con acceso al mercado de capitales.',
   cuerpo:
     'Acompañamos a profesionales, emprendedores y familias del Noroeste Argentino a tomar mejores decisiones financieras, con un asesoramiento interdisciplinario que combina mirada tributaria, contable, financiera y de mercado de capitales.',
   cita: 'Le abrimos el acceso a herramientas de inversión y financiamiento habitualmente reservadas al mundo corporativo.',
@@ -401,7 +401,7 @@ export const individuos = {
     texto:
       'El Nivel 03 Estratégico integra ambos perímetros —la sociedad y los socios como personas humanas— en una misma planificación fiscal y patrimonial anual.',
   },
-  cta: 'Coordinar una reunión inicial',
+  cta: 'Coordinar una reunión de diagnóstico',
 } as const
 
 export const niveles = {
@@ -448,7 +448,7 @@ export const proceso = {
     },
   ],
   nota:
-    'La reunión puede ser presencial en Catamarca o virtual para el resto del NOA. La teneduría de libros se lleva en el sistema online del Estudio, accesible para su empresa en todo momento.',
+    'La reunión puede ser presencial en Catamarca o virtual para el resto del NOA.',
 } as const
 
 export const estandar = {
@@ -482,7 +482,7 @@ export const estandar = {
 } as const
 
 export const equipo = {
-  eyebrow: 'Quiénes firman este trabajo',
+  eyebrow: 'La firma',
   titulo: 'WL Hnos. y Asoc.',
   bajada:
     'Sociedad de profesionales en Ciencias Económicas nacida en 2018, radicada en la provincia de Catamarca y con alcance en todo el Noroeste Argentino.',
@@ -624,7 +624,7 @@ export const preguntas = {
       enlace: null,
     },
     {
-      pregunta: 'Voy a tener que entregarles información sensible de mi empresa y de mi familia.',
+      pregunta: '¿Qué pasa con la información sensible de mi empresa y de mi familia?',
       respuesta:
         'La información patrimonial y financiera que nos confía queda amparada por el secreto profesional que rige el ejercicio de las Ciencias Económicas. La confidencialidad es uno de los valores declarados de la firma y se sostiene con el manejo discreto de la información sensible. En cuanto a este sitio: el prediagnóstico y las calculadoras funcionan íntegramente en su navegador, no envían ni almacenan nada, y el formulario de contacto solo se usa para responderle.',
       enlace: { texto: 'Ver la política de privacidad', href: '/privacidad' },
@@ -637,6 +637,6 @@ export const contacto = {
   bajada:
     'Agendemos una reunión de 45 minutos para conocer su situación y evaluar dónde podemos generar mayor valor. Sin costo ni compromiso, presencial en Catamarca o virtual en todo el NOA.',
   etiqueta: '45 minutos · sin costo ni compromiso',
-  tituloFormulario: 'O déjenos sus datos y lo llamamos',
+  tituloFormulario: 'O déjenos sus datos y nos comunicamos con usted',
   cierre: 'Equipo WL Hnos. y Asoc. — Visión integral y estratégica para sus decisiones financieras.',
 } as const

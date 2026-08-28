@@ -31,6 +31,10 @@ type Props = {
  *  · Nada se envía ni se almacena: las respuestas viven en el navegador hasta
  *    que la persona decide enviarlas.
  */
+/** Hasta nueve, que es el máximo de situaciones de la lista. */
+const PALABRAS = ['cero', 'una', 'dos', 'tres', 'cuatro', 'cinco', 'seis', 'siete', 'ocho', 'nueve']
+const numeroEnPalabras = (n: number) => PALABRAS[n] ?? String(n)
+
 export default function Prediagnostico({ situaciones }: Props) {
   const [marcadas, setMarcadas] = useState<ReadonlySet<string>>(new Set())
 
@@ -68,7 +72,7 @@ export default function Prediagnostico({ situaciones }: Props) {
     <div className="tarjeta overflow-hidden">
       <fieldset className="border-0 p-0">
         <legend className="solo-lectores">
-          Situaciones que puede reconocer en su empresa. Marcar las que correspondan.
+          Situaciones que puede reconocer en su empresa. Marque las que correspondan.
         </legend>
 
         <ul className="divide-y divide-borde">
@@ -121,17 +125,29 @@ export default function Prediagnostico({ situaciones }: Props) {
         ) : (
           <>
             <p className="text-[13.5px] leading-relaxed text-tinta-2">
-              Señaló <strong className="font-semibold text-navy">{elegidas.length}</strong>{' '}
-              {elegidas.length === 1 ? 'situación' : 'situaciones'}
+              {elegidas.length === 1 ? (
+                <>Señaló <strong className="font-semibold text-navy">una situación</strong></>
+              ) : (
+                <>
+                  Señaló{' '}
+                  <strong className="font-semibold text-navy">
+                    {numeroEnPalabras(elegidas.length)}
+                  </strong>{' '}
+                  situaciones
+                </>
+              )}
               {frentes.length > 0 && (
                 <>
                   {' '}
-                  sobre {frentes.length === 1 ? 'un frente de trabajo' : `${frentes.length} frentes de trabajo`}
+                  sobre {frentes.length === 1 ? 'un frente de trabajo' : `${numeroEnPalabras(frentes.length)} frentes de trabajo`}
                   {': '}
-                  <span className="font-semibold text-navy">{frentes.join(', ')}</span>
+                  <span className="font-semibold text-navy">{frentes.join(' · ')}</span>
                 </>
               )}
-              . Ninguna de ellas se resuelve por separado; por eso las miramos juntas.
+              .{' '}
+              {elegidas.length === 1
+                ? 'Esa situación no se resuelve aislada del resto; por eso las miramos juntas.'
+                : 'Ninguna de ellas se resuelve por separado; por eso las miramos juntas.'}
             </p>
             <a
               href={enlace}
@@ -141,7 +157,7 @@ export default function Prediagnostico({ situaciones }: Props) {
               className="boton boton-primario mt-4 w-full sm:w-auto"
             >
               <WhatsApp size={16} />
-              Enviar lo que señalé y coordinar una reunión
+              Enviar lo señalado y coordinar una reunión
             </a>
             <p className="mt-2.5 text-[12.5px] text-tenue">
               Se abre WhatsApp con el mensaje ya redactado. Usted revisa antes de enviar.

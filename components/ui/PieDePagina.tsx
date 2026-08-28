@@ -110,10 +110,10 @@ export default function PieDePagina() {
               </li>
               <li className="flex items-start gap-2.5 text-[13.5px] leading-snug">
                 <Pin size={15} className="mt-0.5 shrink-0 text-celeste-300" />
+                {/* Una sola línea mientras `ciudad` y `provincia` sean el mismo
+                    dato: hasta que el Estudio confirme la localidad exacta. */}
                 <span>
-                  {site.ciudad}
-                  <br />
-                  {site.provincia}, {site.pais}
+                  Provincia de {site.provincia}, {site.pais}
                 </span>
               </li>
             </ul>
@@ -136,7 +136,7 @@ export default function PieDePagina() {
         <div className="mt-14 border-t border-white/10 pt-7">
           <div className="flex flex-col gap-3 text-[12.5px] sm:flex-row sm:items-center sm:justify-between">
             <p>
-              © {anio} {site.nombreLegal}. C.U.I.T. {site.cuit}.
+              © {anio} {site.nombreLegal} · C.U.I.T. {site.cuit}
             </p>
             <div className="flex items-center gap-4">
               <a href="/privacidad" className="transition-colors hover:text-white">

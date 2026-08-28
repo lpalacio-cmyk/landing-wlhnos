@@ -90,7 +90,7 @@ export default function FormularioContacto({
       const resultado = await respuesta.json()
 
       if (!respuesta.ok || !resultado.ok) {
-        setError(resultado.error || 'No pudimos enviar su consulta. Vuelva a intentar en un momento.')
+        setError(resultado.error || 'No pudimos enviar su consulta. Vuelva a intentarlo en unos minutos o escríbanos por WhatsApp.')
         setEstado('error')
         return
       }
@@ -199,7 +199,7 @@ export default function FormularioContacto({
   return (
     <form onSubmit={enviar} className="tarjeta p-6 sm:p-8" noValidate>
       <fieldset className="border-0 p-0">
-        <legend className="etiqueta-campo mb-3">¿Desde dónde nos consulta?</legend>
+        <legend className="etiqueta-campo mb-3">¿Cuál es su caso?</legend>
         <div className="grid gap-2 sm:grid-cols-2">
           {PERFILES.map((p) => {
             const activo = perfil === p.valor
@@ -272,8 +272,8 @@ export default function FormularioContacto({
       </div>
 
       <p className="mt-2 text-[12.5px] text-tenue">
-        Complete al menos uno de los dos <span className="text-naranja-700">*</span>. Le respondemos
-        por donde prefiera.
+        Con el correo o el teléfono alcanza <span className="text-naranja-700">*</span>: le
+        respondemos por donde prefiera.
       </p>
 
       <div className="mt-5">

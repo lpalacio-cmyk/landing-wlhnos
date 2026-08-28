@@ -77,7 +77,7 @@ export default function Equipo() {
 
           <div>
             <Revelar retardo={80}>
-              <p className="ordinal text-tenue">LOS SOCIOS</p>
+              <p className="ordinal text-tenue">INTERLOCUCIÓN</p>
               <p className="mt-3 max-w-[46ch] text-[14px] leading-[1.7] text-tinta-2">
                 {equipo.encuadreSocios}
               </p>
